@@ -1,32 +1,29 @@
-import Navbar from './components/Navbar';
+import logo from './logo.svg';
+import './App.css';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Stars } from '@react-three/drei';
 
-import Unity, { unityContext } from 'react-unity-webgl';
-
-const unityContext = new UnityContext({
-  loaderUrl: "build/myunityapp.loader.js",
-  dataUrl: "build/myunityapp.data",
-  frameworkUrl: "build/myunityapp.framework.js",
-  codeUrl: "build/myunityapp.wasm",
-});
-
-// const unityContext = new UnityContext({
-//   loaderUrl: 'buildUnity/ContainerApp.loader.js',
-//   dataUrl: 'buildUnity/ContainerApp.data',
-//   frameworkUrl: 'buildUnity/ContainerApp.framework.js',
-//   codeUrl: 'buildUnity/ContainerApp.wasm',
-//   webglContextAttributes: {
-//     preserveDrawingBuffer: true,
-//   },
-// });
+function Box() {
+  return(
+    <mesh>
+      <boxBufferGeometry attach='geometry' />
+      <meshLambertMaterial attach='material' color='hotpink' />
+    </mesh>
+  )
+}
 
 function App() {
   return(
-    <Unity unityContext={unityContext} />
-  )
+    <Canvas>
+      <OrbitControls />
+      <Stars />
+      <ambientLight intensity={0.5} />
+      <spotLight position={[10, 15, 10]} angle={0.3} />
+      <Box />
+    </Canvas>
+  ) 
   // return (
-  //   <div className="App">
-  //     <Navbar/>
-  //   </div>
+  //   <div>test</div>
   // );
 }
 
