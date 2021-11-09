@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+// import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
 
@@ -89,3 +90,20 @@ const Login = () => {
 }
 
 export default Login;
+
+// const responseGoogle = response => {
+//     console.log(response);
+
+//     return (
+//         <GoogleLogin
+//         clientId=""
+//         buttonText="Login with Google"
+//         onSuccess={responseGoogle}
+//         onFailure={responseGoogle}
+//         cookiePolicy="single_host_origin"
+//         />
+//     )
+// }
+
+// export default responseGoogle;
+
