@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
 
@@ -17,6 +18,22 @@ const Login = () => {
 
     const formSwitch = () => {
         setIsSignUp(!isSignup);
+    }
+
+    const googleSuccess = async (res) => {
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        try {
+            dispatch({ type: 'AUTH', data: {result, token} });
+            history.push('/');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const googleFailure = () => {
+        console.log("Google sign-in failed.")
     }
 
     const handleSubmit = (e) => {
@@ -81,8 +98,14 @@ const Login = () => {
                 <button type='submit'>
                     { isSignup ? 'Sign up' : 'Sign in' }
                 </button>
+                <GoogleLogin 
+                    clientId="432327020955-d7cffq2keh3f41tmo5negie5adkeqp5c.apps.googleusercontent.com"
+                    onSuccess={googleSuccess}
+                    onFailure={googleFailure}
+                    cookiePolicy="single_host_origin"
+                />
             </form>
-            { isSignup? <><span>Already have an account? </span><a onClick={formSwitch}>Sign in</a></>
+            { isSignup ? <><span>Already have an account? </span><a onClick={formSwitch}>Sign in</a></>
                 : <><a>Forgot password?</a><span>Don't have an account? </span><a onClick={formSwitch}>Sign up</a></> }
         </div>
     )
