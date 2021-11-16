@@ -2,8 +2,9 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import Auth from './components/Auth';
-import Boxes from './components/Boxes';
+import Sandbox from './components/Sandbox';
 import RoomPage from './components/RoomPage';
+import Boxes from './components/Boxes';
 
 function App() {
   return (
@@ -17,10 +18,14 @@ function App() {
           <Route exact path='/login'>
             <Auth />
           </Route>
-          <Route exact path='/boxes'>
-            <Boxes />
+          <Route exact path='/sandbox'>
+            <Sandbox />
+          </Route>
           <Route exact path='/room_page'>
             <RoomPage />
+          </Route>
+          <Route exact path='/boxes'>
+            <Boxes />
           </Route>
         </Switch>
       </div>
