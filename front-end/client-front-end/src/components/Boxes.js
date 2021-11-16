@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {Container, Button, Col, Row, 
-    Modal, ModalBody, ModalHeader, ModalFooter, ModalTitle} from 'react-bootstrap';
+   } from 'react-bootstrap';
 import './style/Boxes.css';
 import ReactDOM from 'react-dom'
 
@@ -39,6 +39,9 @@ const Boxes = () => {
         const addBoxDiv = (
             <div>
                     <form>
+                    <label>Box Name:
+                    <input type="text" placeholder="BoxName"/>
+                    </label>
                     <label>Enter Box Dimensions:
                     <input type="text" placeholder="x"/>
                     <input type="text"  placeholder="y"/>
