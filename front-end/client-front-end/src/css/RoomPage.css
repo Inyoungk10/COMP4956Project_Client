@@ -1,0 +1,58 @@
+.room_page {
+    display: grid;
+    grid-template-columns: 15% 30% 10% 30% 15%;
+    grid-template-rows: 15% 30% 10% 30% 15%;
+    height: 100vh;
+    width: 100vw;
+}
+
+.rooms_container {
+    background-color: azure;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 5;
+    /* margin-right: 2em; */
+}
+
+.boxes_container {
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 5;
+    background-color: honeydew;
+}
+
+.add_room {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    margin: 50px 0px 0px 0px;
+    height:50px;
+    width: 300px;
+    background-color: honeydew;
+    border: honeydew;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 3px;
+}
+
+.add_room:hover {
+    background-color: azure;
+    color: green;
+}
+
+.rooms {
+    align-self:stretch;
+    height:100%;
+    width: 100%;
+    background-color: hotpink;
+}
+
+.boxes {
+    align-self:stretch;
+    height:100%;
+    width: 100%;
+    background-color: hotpink;
+}
