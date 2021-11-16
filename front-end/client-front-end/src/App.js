@@ -16,6 +16,9 @@ function App() {
           <Route exact path='/login'>
             <Auth />
           </Route>
+          <Route exact path='/sandbox'>
+            <Sandbox />
+          </Route>
           <Route path="/Sandbox" element={<Sandbox/>}/>
         </Switch>
       </div>
