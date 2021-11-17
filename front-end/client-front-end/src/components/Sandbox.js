@@ -1,78 +1,69 @@
-//import "bootstrap/dist/css/bootstrap.css";
-// import {
-//   Container,
-//   Button,
-//   Col,
-//   Row,
-//   Modal,
-//   ModalBody,
-//   ModalHeader,
-//   ModalFooter,
-//   ModalTitle,
-// } from "react-bootstrap";
-import "./sandbox.css";
-import React from "react";
-import { Link } from "react-router-dom";
-import reactDOM from 'react-dom';
+import React, { useState, useEffect } from "react";
+import Unity, { UnityContext } from 'react-unity-webgl'
+
+const unityContext = new UnityContext({
+  loaderUrl: "\\build\\Build.loader.js",
+  dataUrl: "\\build\\Build.data",
+  frameworkUrl: "\\build\\Build.framework.js",
+  codeUrl: "\\build\\Build.wasm",
+});
 
 const Sandbox = () => {
-  
 
-  function displayBox(i) {
-    // let list = document.getElementById("itemslist");
+  const [progression, setProgression] = useState(0);
+
+  useEffect(function () {
+    unityContext.on("progress", function (progression) {
+      setProgression(progression);
+    });
+  }, []);
+
+  useEffect(function () {
+    unityContext.on("canvas", function (canvas) {
+      canvas.width = 100;
+      canvas.height = 50;
+    });
+  }, []);
+
+  // when box is clicked info of box is displayed in div
+  const displayInfo = () => {
+    let infoDiv = document.getElementById('boxInfo');
+    infoDiv.innerHTML = '';
     
-    // let boxItems = boxes['id'][i][items];
-    // for (var item of boxItems) {
-    //     let newItem = document.createElement('h4');
-    //     newItem.innerHTML = item.name;
+    let bb = document.createElement('p');
+    bb.innerHTML = "Basketball";
 
-    //     let newItemQuan = document.createElement('p');
-    //     newItemQuan.innerHTML = item.quantity;
-        
-    //     list.appendChild(newItem);
-    //     list.appendChild(newItemQuan);
-    // }
-    // let item = boxes[i]['items'][32]
-    // let newItem = document.createElement('h4');
-    // newItem.innerHTML = item.name;
+    let sb = document.createElement('p');
+    sb.innerHTML = "Soccer Ball";
 
-    // let newItemQuan = document.createElement('p');
-    // newItemQuan.innerHTML = item.quantity;
-        
-    // list.appendChild(newItem);
-    // list.appendChild(newItemQuan);
-    
+    let rb = document.createElement('p');
+    rb.innerHTML = "Rugby Ball";
+
+    infoDiv.appendChild(bb);
+    infoDiv.appendChild(sb);
+    infoDiv.appendChild(rb);
   }
 
   return (
-    <div>
-      <div>
-        <h1 class="heading">Room 1</h1>
-        <div class="w-row">
-          <div class="column-2 w-col w-col-9">
-            <button id="box1" class="box w-button" onclick={displayBox(1)}>
-              Test Box 1
-            </button>
-            <button id="box2" class="box w-button" onclick={displayBox(2)}>
-              Test Box 2
-            </button>
-            <button id="box3" class="box w-button" onclick={displayBox(3)}>
-              Test Box 3
-            </button>
-          </div>
-          <div class="w-col w-col-3">
-            <h1>Box List Item</h1>
-            <div id="itemsList" role="list"></div>
-          </div>
-        </div>
+    <div style={{width: '100%', display: 'table'}}>
+      <div style={{display: 'table-row'}}>
+        <div style={{width: '600px', display: 'table-cell'}}> 
+        <h1>Sndbox</h1>
+        <p>Loading {progression * 100} percent...</p>
+        <Unity
+          unityContext={unityContext}
+          matchWebGLToCanvasSize={false}
+          style={{ width: "900px", height: "640px" }}
+        />
       </div>
-      <Link to="/Homepage">
-      <button class="primary-button w-button">
-        My Rooms
-      </button>
-      </Link>
+        <div style={{display: "table-cell"}}>
+          <button onClick={displayInfo}>View Info Test</button>
+          <div id="boxInfo" style={{'background-color': 'Beige'}}>
+          </div>
+      </div>
     </div>
+  </div>
   );
-};
+}
 
-export default Sandbox;
+export default Sandbox
