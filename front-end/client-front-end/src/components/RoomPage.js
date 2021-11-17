@@ -26,7 +26,7 @@ const RoomPage = () => {
             </div>
 
         </div>
-    )
+    ) 
 }
 
 export default RoomPage;
