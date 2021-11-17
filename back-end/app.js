@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from './models/user.js';
+import auth from './middleware/auth.js';
 
 const app = express();
 app.use(cors());
@@ -13,13 +14,18 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+const CONNECTION_URL = 'mongodb+srv://client-team:client-team123@cluster0.agrca.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
 
 // not sure if they need to be async or not.
 app.post('/signin', async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        console.log(email, password)
         const existingUser = await User.findOne({ email });
+
+        console.log(existingUser);
 
         if(!existingUser) return res.status(404).json({ message: "User doesn't exist." });
 
@@ -30,6 +36,7 @@ app.post('/signin', async (req, res) => {
 
         res.status(200).json({ result: existingUser, token });
     } catch (error) {
+        console.log('error');
         res.status(500).json({ message: "Something went wrong." });
     }
 });
@@ -47,7 +54,7 @@ app.post('/signup', async (req, res) => {
 
         const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
-        const tokent = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
+        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
 
         res.status(200).json({ result, token });
     } catch (error) {
@@ -55,5 +62,10 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`listening on port ${port}...`));
+const PORT = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`listening on port ${port}...`));
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+    .catch((error) => console.log(error.message));
+
+// mongoose.set('useFindAndModify', false);
