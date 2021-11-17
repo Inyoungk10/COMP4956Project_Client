@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import '../scss/auth.css';
+import { signin, signup } from '../actions/auth.js';
 
 const Login = () => {
 
@@ -47,10 +48,12 @@ const Login = () => {
             repeatPassword
         }
 
+        console.log(formData)
+
         if (isSignup) {
-
+            dispatch(signup(formData, history));
         } else {
-
+            dispatch(signin(formData, history));
         }
     }
 
