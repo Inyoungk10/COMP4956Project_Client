@@ -1,15 +1,4 @@
-//import "bootstrap/dist/css/bootstrap.css";
-// import {
-//   Container,
-//   Button,
-//   Col,
-//   Row,
-//   Modal,
-//   ModalBody,
-//   ModalHeader,
-//   ModalFooter,
-//   ModalTitle,
-// } from "react-bootstrap";
+
 import "./sandbox.css";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -19,28 +8,6 @@ const Sandbox = () => {
   
 
   function displayBox(i) {
-    // let list = document.getElementById("itemslist");
-    
-    // let boxItems = boxes['id'][i][items];
-    // for (var item of boxItems) {
-    //     let newItem = document.createElement('h4');
-    //     newItem.innerHTML = item.name;
-
-    //     let newItemQuan = document.createElement('p');
-    //     newItemQuan.innerHTML = item.quantity;
-        
-    //     list.appendChild(newItem);
-    //     list.appendChild(newItemQuan);
-    // }
-    // let item = boxes[i]['items'][32]
-    // let newItem = document.createElement('h4');
-    // newItem.innerHTML = item.name;
-
-    // let newItemQuan = document.createElement('p');
-    // newItemQuan.innerHTML = item.quantity;
-        
-    // list.appendChild(newItem);
-    // list.appendChild(newItemQuan);
     
   }
 

@@ -39,8 +39,8 @@ const Boxes = () => {
         const addBoxDiv = (
             <div>
                     <form>
-                    <label>Box Dimensions:
-                    <input type="text" placeholder="x"/>
+                    <label>Box Name:
+                    <input type="text" placeholder="BoxName"/>
                     </label>
                     <label>Enter Box Dimensions:
                     <input type="text" placeholder="x"/>

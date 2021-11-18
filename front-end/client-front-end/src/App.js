@@ -5,6 +5,7 @@ import Auth from './components/Auth';
 import Sandbox from './components/Sandbox';
 import RoomPage from './components/RoomPage';
 import Boxes from './components/Boxes';
+import Create from './components/CreateBox';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route exact path='/boxes'>
             <Boxes />
+          </Route>
+          <Route exact path='/addbox'>
+            <Create />
           </Route>
         </Switch>
       </div>

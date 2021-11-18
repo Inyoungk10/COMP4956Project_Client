@@ -40,19 +40,42 @@ recordRoutes.route("/:UserID/rooms/:RoomID").get(function (req, res) {
 });
 
 // This section will help you create a new room.
-recordRoutes.route("/:UserID/rooms/add").post(function (req, response) {
-  let db_connect = dbo.getDb();
-  let myobj = {
-    person_name: req.body.person_name,
-    person_position: req.body.person_position,
-    person_level: req.body.person_level,
+recordRoutes.route("/record/add").post(function (req, response) {
+    let db_connect = dbo.getDb();
+    var id_num = db_connect.collection.Count.Where( { _id: ObjectId( req.body.id )});
+    console.log(req.body);
+    id_num += 1;
+    console.log(id_num);
+    let myobj = {
+      RoomID: id_num,
+      Room: req.body.Room,
+      Boxes: req.body.Boxes,
+      UserID: req.body.UserID
   };
-
+  
   // add to db
-  db_connect.collection("records").insertOne(myobj, function (err, res) {
-    if (err) throw err;
-    response.json(res);
-  });
+    db_connect.collection("records").insertOne(myobj, function (err, res) {
+      if (err) throw err;
+      response.json(res);
+    });
+});
+
+// This section will help you create a new box.
+recordRoutes.route("/:UserID/rooms/:RoomID/addBox").post(function (req, response) {
+  let db_connect = dbo.getDb("roomalityDb");
+  console.log(req.body);
+  console.log(req.params);
+  var newBox = {
+    X: req.body.X,
+    Y: req.body.Y,
+    Z: req.body.Z
+  };
+  // add to db
+  db_connect.collection("ScannedObjectsCollection").updateOne(
+    { UserID: ObjectId(req.params.UserID),
+      RoomID: req.params.RoomID },
+    {  $addToSet: { "Room.Boxes": newBox } }
+    );
 });
 
 // This section will help you update a record by id.
@@ -67,7 +90,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     },
   };
   db_connect
-    .collection("records")
+    .collection("ScannedObjectsCollection")
     .updateOne(myquery, newvalues, function (err, res) {
       if (err) throw err;
       console.log("1 document updated");
