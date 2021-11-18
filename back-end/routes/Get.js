@@ -5,28 +5,19 @@ const express = require("express");
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
 
+recordRoutes.use(express.json());
+recordRoutes.use(express.urlencoded({ extended: true }));
+
 // This will help us connect to the database
 const dbo = require("../db/conn");
 
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-// This section will help you get a list of all the records.
-recordRoutes.route("/rooms").get(function (req, res) {
+// This section will help you get a all rooms by user
+recordRoutes.route("/:UserID/rooms/").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
-  db_connect
-    .collection("ScannedObjectsCollection")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
-});
-
-// This section will help you get a single record by id
-recordRoutes.route("/rooms/:id").get(function (req, res) {
-  let db_connect = dbo.getDb("roomalityDb");
-  let myquery = { ID: ObjectId( req.params.id )};
+  let myquery = { UserID: ObjectId(req.params.UserID) };
   db_connect
       .collection("ScannedObjectsCollection")
       .findOne(myquery, function (err, result) {
@@ -35,14 +26,29 @@ recordRoutes.route("/rooms/:id").get(function (req, res) {
       });
 });
 
-// This section will help you create a new record.
-recordRoutes.route("/room/add").post(function (req, response) {
+// This section will help you get a single record by room and user id
+recordRoutes.route("/:UserID/rooms/:RoomID").get(function (req, res) {
+  let db_connect = dbo.getDb("roomalityDb");
+  let myquery = { RoomID: req.params.RoomID, UserID: ObjectId(req.params.UserID) };
+  
+  db_connect
+      .collection("ScannedObjectsCollection")
+      .findOne(myquery, function (err, result) {
+        if (err) throw err;
+        res.json(result);
+      });
+});
+
+// This section will help you create a new room.
+recordRoutes.route("/:UserID/rooms/add").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myobj = {
     person_name: req.body.person_name,
     person_position: req.body.person_position,
     person_level: req.body.person_level,
   };
+
+  // add to db
   db_connect.collection("records").insertOne(myobj, function (err, res) {
     if (err) throw err;
     response.json(res);
