@@ -5,6 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import '../scss/auth.css';
 import { signin, signup } from '../actions/auth.js';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container'
 import { TextField } from '@mui/material';
 
 const Login = () => {
@@ -64,6 +65,7 @@ const Login = () => {
     return(
         <div>
             <div id="submissionForm">
+                <Container />
             { isSignup ? <h2>Sign up</h2> : <h2>Sign in</h2> }
             <form onSubmit={handleSubmit}>
                 { isSignup && (
