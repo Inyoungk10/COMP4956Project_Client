@@ -30,7 +30,7 @@ recordRoutes.route("/:UserID/rooms/").get(function (req, res) {
 recordRoutes.route("/:UserID/rooms/:RoomID").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
   let myquery = { RoomID: req.params.RoomID, UserID: ObjectId(req.params.UserID) };
-  
+
   db_connect
       .collection("ScannedObjectsCollection")
       .findOne(myquery, function (err, result) {
