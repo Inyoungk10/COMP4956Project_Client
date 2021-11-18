@@ -14,6 +14,9 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+// get request for user info
+// return UserID object + room id + box ids+ + name
+
 // This section will help you get a all rooms by user
 recordRoutes.route("/:UserID/rooms/").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
@@ -40,7 +43,7 @@ recordRoutes.route("/:UserID/rooms/:RoomID").get(function (req, res) {
 });
 
 // This section will help you create a new room.
-recordRoutes.route("/record/add").post(function (req, response) {
+recordRoutes.route("/rooms/add").post(function (req, response) {
     let db_connect = dbo.getDb();
     var id_num = db_connect.collection.Count.Where( { _id: ObjectId( req.body.id )});
     console.log(req.body);
@@ -54,6 +57,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
   };
   
   // add to db
+  // when adding room to collection add room idto user db
     db_connect.collection("records").insertOne(myobj, function (err, res) {
       if (err) throw err;
       response.json(res);
@@ -71,15 +75,24 @@ recordRoutes.route("/:UserID/rooms/:RoomID/addBox").post(function (req, response
     Z: req.body.Z
   };
   // add to db
+    
+
   db_connect.collection("ScannedObjectsCollection").updateOne(
     { UserID: ObjectId(req.params.UserID),
       RoomID: req.params.RoomID },
     {  $addToSet: { "Room.Boxes": newBox } }
     );
+
+// when adding room to collection add room idto user db
+    db_connect.collection("").updateOne(
+      { UserID: ObjectId(req.params.UserID),
+        RoomID: req.params.RoomID },
+      {  $addToSet: { "Room.Boxes": newBox } }
+      );
 });
 
 // This section will help you update a record by id.
-recordRoutes.route("/update/:id").post(function (req, response) {
+recordRoutes.route("/:UserID/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
