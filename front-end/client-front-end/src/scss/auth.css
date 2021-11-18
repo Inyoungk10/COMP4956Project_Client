@@ -1,0 +1,12 @@
+#submissionForm {
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(137, 198, 255);
+}
+
+input {
+    margin-bottom: 20px;
+}
