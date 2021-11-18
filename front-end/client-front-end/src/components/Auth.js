@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import '../scss/auth.css';
 import { signin, signup } from '../actions/auth.js';
+import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 const Login = () => {
 
@@ -14,6 +16,8 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+
+    const textFieldVariant = 'standard';
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -82,37 +86,28 @@ const Login = () => {
                     <br />
                     </>
                 )}
+
                 <label>Email</label>
                 <br />
-                <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                ></input>
+                <TextField label='Email' variant={textFieldVariant} value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <br />
+
                 <label>Password</label>
                 <br />
-                <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                ></input>
+                <TextField label='Password' variant={textFieldVariant} value={password} onChange={(e) => setPassword(e.target.value)} required />
                 <br />
+
                 { isSignup && (
                     <>
                     <label>Repeat password</label>
                     <br />
-                    <input
-                        value={repeatPassword}
-                        onChange={(e) => setRepeatPassword(e.target.value)}
-                        required
-                    ></input>
+                    <TextField value={repeatPassword} variant={textFieldVariant} onChange={(e) => setRepeatPassword(e.target.value)} required/>
                     <br />
                     </>
                 )}
-                <button type='submit'>
+                <Button variant='contained' type='submit'>
                     { isSignup ? 'Sign up' : 'Sign in' }
-                </button>
+                </Button>
                 <br />
                 <GoogleLogin 
                     clientId="432327020955-d7cffq2keh3f41tmo5negie5adkeqp5c.apps.googleusercontent.com"
