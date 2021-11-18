@@ -68,40 +68,23 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 { isSignup && (
                     <>
-                    <label>First name</label>
+                    <TextField label='First name' variant={textFieldVariant} value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                     <br />
-                    <input
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
-                    ></input>
-                    <br />
-                    <label>Last name</label>
-                    <br />
-                    <input
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                    ></input>
+
+                    <TextField label='Last name' variant={textFieldVariant} value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                     <br />
                     </>
                 )}
 
-                <label>Email</label>
-                <br />
                 <TextField label='Email' variant={textFieldVariant} value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <br />
 
-                <label>Password</label>
-                <br />
                 <TextField label='Password' variant={textFieldVariant} value={password} onChange={(e) => setPassword(e.target.value)} required />
                 <br />
 
                 { isSignup && (
                     <>
-                    <label>Repeat password</label>
-                    <br />
-                    <TextField value={repeatPassword} variant={textFieldVariant} onChange={(e) => setRepeatPassword(e.target.value)} required/>
+                    <TextField label='Repeat password' value={repeatPassword} variant={textFieldVariant} onChange={(e) => setRepeatPassword(e.target.value)} required/>
                     <br />
                     </>
                 )}
