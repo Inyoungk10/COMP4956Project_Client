@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Homepage from './components/Homepage';
+//import Homepage from './components/Homepage';
 import Auth from './components/Auth';
 import Sandbox from './components/Sandbox';
 import RoomPage from './components/RoomPage';
@@ -12,9 +12,9 @@ function App() {
       <Navbar/>
       <div className='content'>
         <Switch>
-          <Route exact path='/'>
+          {/* <Route exact path='/'>
             <Homepage />
-          </Route>
+          </Route> */}
           <Route exact path='/login'>
             <Auth />
           </Route>

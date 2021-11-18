@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Unity, { UnityContext } from 'react-unity-webgl'
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
 const unityContext = new UnityContext({
   loaderUrl: "\\build\\Build.loader.js",
@@ -25,6 +27,9 @@ const Sandbox = () => {
     });
   }, []);
 
+  const getInfo = () => {
+
+  }
   // when box is clicked info of box is displayed in div
   const displayInfo = () => {
     let infoDiv = document.getElementById('boxInfo');
@@ -56,11 +61,10 @@ const Sandbox = () => {
           style={{ width: "900px", height: "640px" }}
         />
       </div>
-        <div style={{display: "table-cell"}}>
-          <button onClick={displayInfo}>View Info Test</button>
-          <div id="boxInfo" style={{'background-color': 'Beige'}}>
-          </div>
-      </div>
+      <Container maxWidth="sm">
+        <Button variant="contained" onClick={displayInfo}>View Info</Button>
+          <div id="boxInfo" style={{'background-color': 'Beige'}}></div>
+      </Container>
     </div>
   </div>
   );
