@@ -18,9 +18,9 @@ const ObjectId = require("mongodb").ObjectId;
 // return UserID object + room id + box ids+ + name
 
 // This section will help you get a all rooms by user
-recordRoutes.route("/:UserID/rooms/").get(function (req, res) {
+recordRoutes.route("/rooms/").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
-  let myquery = { UserID: ObjectId(req.params.UserID) };
+  let myquery = { UserID: ObjectId(req.body.UserID) };
   db_connect
       .collection("ScannedObjectsCollection")
       .findOne(myquery, function (err, result) {
@@ -30,9 +30,9 @@ recordRoutes.route("/:UserID/rooms/").get(function (req, res) {
 });
 
 // This section will help you get a single record by room and user id
-recordRoutes.route("/:UserID/rooms/:RoomID").get(function (req, res) {
+recordRoutes.route("/rooms/:RoomID").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
-  let myquery = { RoomID: req.params.RoomID, UserID: ObjectId(req.params.UserID) };
+  let myquery = { RoomID: req.params.RoomID, UserID: ObjectId(req.body.UserID) };
 
   db_connect
       .collection("ScannedObjectsCollection")
@@ -65,7 +65,7 @@ recordRoutes.route("/rooms/add").post(function (req, response) {
 });
 
 // This section will help you create a new box.
-recordRoutes.route("/:UserID/rooms/:RoomID/addBox").post(function (req, response) {
+recordRoutes.route("/rooms/:RoomID/addBox").post(function (req, response) {
   let db_connect = dbo.getDb("roomalityDb");
   console.log(req.body);
   console.log(req.params);
@@ -78,7 +78,7 @@ recordRoutes.route("/:UserID/rooms/:RoomID/addBox").post(function (req, response
     
 
   db_connect.collection("ScannedObjectsCollection").updateOne(
-    { UserID: ObjectId(req.params.UserID),
+    { UserID: ObjectId(req.body.UserID),
       RoomID: req.params.RoomID },
     {  $addToSet: { "Room.Boxes": newBox } }
     );
@@ -92,9 +92,9 @@ recordRoutes.route("/:UserID/rooms/:RoomID/addBox").post(function (req, response
 });
 
 // This section will help you update a record by id.
-recordRoutes.route("/:UserID/update/:id").post(function (req, response) {
+recordRoutes.route("/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
+  let myquery = { _id: ObjectId( req.body.id )};
   let newvalues = {
     $set: {
       person_name: req.body.person_name,
