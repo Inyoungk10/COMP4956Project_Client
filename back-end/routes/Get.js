@@ -1,5 +1,6 @@
 const express = require("express");
-
+const crypto = require("crypto");
+const { v4: uuidv4 } = require('uuid');
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
@@ -21,90 +22,48 @@ const ObjectId = require("mongodb").ObjectId;
 recordRoutes.route("/rooms/").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
   let myquery = { UserID: ObjectId(req.body.UserID) };
-  console.log(myquery);
+  //console.log(myquery);
   db_connect  
       .collection("ScannedObjectsCollection")
       .findOne(myquery, function (err, result) {
         if (err) throw err;
         res.json(result);
+        res.status(200);
       });
 });
 
-// This section will help you return all boxes by user
-// recordRoutes.route("/rooms").get(function (req, res) {
-//   let db_connect = dbo.getDb("roomalityDb");
-//   let myquery = { RoomID: req.body.RoomID, UserID: ObjectId(req.body.UserID) };
-
-//   db_connect
-//       .collection("ScannedObjectsCollection")
-//       .findOne(myquery.Boxes, function (err, result) {
-//         if (err) throw err;
-//         res.json(result);
-//       });
-// });
-
-// This section will help you create a new room.
-// recordRoutes.route("/rooms/add").post(function (req, response) {
-//     let db_connect = dbo.getDb();
-//     console.log(req.body);
-//     //id_num += 1;
-//     //console.log(id_num);
-//     let myobj = {
-//       Height: req.body.Height,
-//       Width: req.body.Width,
-//       Depth: req.body.Depth,
-//       UserID: req.body.UserID,
-//       Name: req.body.Name
-//   };
-  
-//   // add to db
-//   // when adding room to collection add room idto user db
-//     db_connect.collection("ScannedObjectsCollection").insertOne(myobj, function (err, res) {
-//       if (err) throw err;
-//       response.json(res);
-//     });
-// });
 
 // This section will help you create a new room.
 recordRoutes.route("/rooms/addRoom").post(function (req, response) {
   let db_connect = dbo.getDb("roomalityDb");
-  //let userDB_connect = dbo.getDb("myFirstDatabase");
-  
-  // var box_id_num = userDB_connect.collection("users").Count.Where( { _id: ObjectId( req.body.UserID )});
-  //console.log(req.body);
-  //console.log(req.params);
+
+  //Generate unique id
+  let roomID = uuidv4();
+
   var newRoom = {
+    RoomID: roomID,
     Width: req.body.Width,
     Height: req.body.Height,
     Depth: req.body.Depth,
-    Name: req.body.Name,
-    Boxes: Array[null]
+    RoomName: req.body.RoomName
   };
   // add to db
-    
-
   db_connect.collection("ScannedObjectsCollection").updateOne(
     { UserID: ObjectId(req.body.UserID) },
-    {  $addToSet: { "Room": newRoom } }
-    );
+    {  $addToSet: { Rooms : newRoom } }
+    ).then(() => {
+      response.status(201);
+    });
 
-// when adding room to collection add room idto user db
-  // userDB_connect.collection("users").updateOne(
-  //     { UserID: ObjectId(req.params.UserID),
-  //       RoomID: req.params.RoomID },
-  //     {  $addToSet: { "Room.Boxes": newBox } }
-  //     );
 });
 
-// This section will help you create a new bpx.
+// This section will help you create a new box.
 recordRoutes.route("/rooms/addBox").post(function (req, response) {
   let db_connect = dbo.getDb("roomalityDb");
-  //let userDB_connect = dbo.getDb("myFirstDatabase");
-  
-  // var box_id_num = userDB_connect.collection("users").Count.Where( { _id: ObjectId( req.body.UserID )});
-  //console.log(req.body);
-  //console.log(req.params);
+  let boxID = uuidv4();
+
   var newBox = {
+    BoxID: boxID,
     Width: req.body.Width,
     Height: req.body.Height,
     Depth: req.body.Depth,
@@ -113,11 +72,33 @@ recordRoutes.route("/rooms/addBox").post(function (req, response) {
   // add to db
 
   db_connect.collection("ScannedObjectsCollection").updateOne(
-    { UserID: ObjectId(req.body.UserID) },
-    {  $addToSet: { "Room.$[e].Boxes": newBox } }
-    //{ arrayFilters: [ { "e": { Name = req.body.Name}}]}
-    );
+    { UserID: ObjectId(req.body.UserID),
+      "Rooms.RoomID": req.body.RoomID },
+    {  $addToSet: { "Rooms.$.Boxes": newBox } }
+    ).then(() => {
+      response.status(201);
+    });
+});
 
+// This section will help you create a new item in a box.
+recordRoutes.route("/box/addItem").post(function (req, response) {
+  let db_connect = dbo.getDb("roomalityDb");
+  let itemID = uuidv4();
+
+  var newItem = {
+    ItemID: itemID,
+    ItemName: req.body.ItemName,
+  };
+  // add to db
+
+  db_connect.collection("ScannedObjectsCollection").updateOne(
+    { UserID: ObjectId(req.body.UserID),
+      "Rooms.RoomID": req.body.RoomID },
+    {  $addToSet: { "Rooms.$[room].Boxes.$[box].Items": newItem } },
+    { arrayFilters: [{ 'room.RoomID' : req.body.RoomID }, { 'box.BoxID' : req.body.BoxID}]}
+    ).then(() => {
+      response.status(201).send("Success")
+    });
 });
 
 
@@ -142,14 +123,20 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 });
 
 // This section will help you delete a record
-recordRoutes.route("/:id").delete((req, response) => {
-  let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.params.id )};
-  db_connect.collection("records").deleteOne(myquery, function (err, obj) {
-    if (err) throw err;
-    console.log("1 document deleted");
-    response.status(obj);
-  });
-});
+// recordRoutes.route("/:id").delete((req, response) => {
+//   let db_connect = dbo.getDb();
+//   let myquery = { _id: ObjectId( req.params.id )};
+//   db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+//     if (err){
+//       res.status(404).send("Error");
+//       throw err;
+//     } else {
+//       let message = "New Box Added:\n" + boxID ;
+//       res.status(200).send("Success"));
+//     }
+//     console.log("1 document deleted");
+//     response.status(obj);
+//   });
+// });
 
 module.exports = recordRoutes;
