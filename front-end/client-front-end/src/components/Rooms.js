@@ -5,11 +5,14 @@ import React from 'react';
 */
 
 const Rooms = (props) => {
-    const room = props.room
+    const room = props.room;
+    // const id = room.id;
+    console.log('room', room);
+
     return(
         <div>
-            <h2>{room.name}</h2>
-            <p>Height: {room.height}, Width: {room.width}, Depth:{room.depth}</p>
+            <p key={room.id}>{room.name}</p>
+            <p>Height: {room.height}, Width: {room.width}, Depth: {room.depth}</p>
         </div>
     )
 }

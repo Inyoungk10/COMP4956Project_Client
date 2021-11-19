@@ -9,8 +9,11 @@ import Room from './Rooms';
 */
 
     const RoomPage = () => {
+
+        const myArray = [1,2,3,4,5];
         const roomList = [
             {
+                "id": 1,
                 "name": "den",
                 "height": 3,
                 "width": 5,
@@ -51,29 +54,31 @@ import Room from './Rooms';
                     }
                 ]
             }
-            
         ]
+                
 
         return(
-            <div class="room_page">
+            <div className="room_page">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
                 a new list object / send this information to the mongoDB database*/}
 
-                <button class='add_room'>Add Room </button>
-
-                <div class="rooms_container">
+                <button className='add_room'>Add Room </button>
+                <div className="rooms_container">
                     <h3>Rooms</h3>
-                        <div class="rooms">
-                            {roomList.map((room) => {
-                                <p>Hello</p>
-                            })}
-                        {/* <Room room={roomList[0]}/> */}
+                        <div className="rooms">
+                            {roomList.map((room)=>{
+                                return(
+                                    <div>
+                                        <Room room={room}/>
+                                    </div>
+                                )
+                             })} 
                         </div>
                     {/* Room Component */}
                 </div>
-                <div class ="boxes_container">
+                <div className ="boxes_container">
                     <h3>Boxes</h3>
-                        <div class="boxes">
+                        <div className="boxes">
 
                         </div>
                     {/* Box Component */}                
