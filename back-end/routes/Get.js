@@ -114,8 +114,8 @@ recordRoutes.route("/rooms/addBox").post(function (req, response) {
 
   db_connect.collection("ScannedObjectsCollection").updateOne(
     { UserID: ObjectId(req.body.UserID) },
-    {  $addToSet: { "Room.$[e].Boxes": newBox } },
-    { arrayFilters: [ { "e": { Name = req.body.Name}}]}
+    {  $addToSet: { "Room.$[e].Boxes": newBox } }
+    //{ arrayFilters: [ { "e": { Name = req.body.Name}}]}
     );
 
 });
