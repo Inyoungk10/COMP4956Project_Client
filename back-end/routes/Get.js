@@ -1,6 +1,7 @@
 const express = require("express");
 const crypto = require("crypto");
 const { v4: uuidv4 } = require('uuid');
+const mongoose = require('mongoose');
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
@@ -19,17 +20,21 @@ const ObjectId = require("mongodb").ObjectId;
 // return UserID object + room id + box ids+ + name
 
 // This section will help you get the respective user document
-recordRoutes.route("/rooms/").get(function (req, res) {
+recordRoutes.route("/rooms/:uid").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
-  let myquery = { UserID: ObjectId(req.body.UserID) };
-  //console.log(myquery);
+  let myquery = { UserID: ObjectId(req.params.uid) };
+  console.log(myquery);
   db_connect  
       .collection("ScannedObjectsCollection")
       .findOne(myquery, function (err, result) {
-        if (err) throw err;
-        res.json(result);
-        res.status(200);
+        if (err) {
+          res.status(404).end("error" + err);
+        }
+        console.log(result);
+        res.status(200).send(result);
+        
       });
+    
 });
 
 

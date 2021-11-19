@@ -12,17 +12,9 @@ const unityContext = new UnityContext({
     codeUrl: "\\build\\roomity\\Build.wasm",
   });
 
-const config = {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-}
-
-const data = qs.stringify({
-  UserID: '619499d8e15fd0d9eb530012',
-});
-
 const URL = 'http://localhost:3030/rooms';
+
+let uid = '619499d8e15fd0d9eb530012';
 
 export default class SandboxNew extends Component {
     state = {
@@ -31,13 +23,16 @@ export default class SandboxNew extends Component {
 
     // function to strip boxes from data recieved
     getBoxes() {
-      console.log(URL + data + config.headers['Content-Type']);
       console.log(this.state.Room);
     }
-
     componentDidMount() {
       try { 
-        axios.get(URL, data, config).then(res => {
+        axios.get(`http://localhost:3030/rooms/${uid}`, {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(res => {
           const Room = res;
           console.log("roomdata"+  res);
           this.setState({ Room });
