@@ -2,9 +2,11 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 //import Homepage from './components/Homepage';
 import Auth from './components/Auth';
-import Sandbox from './components/Sandbox';
+import Sandbox from './components/sandbox';
 import RoomPage from './components/RoomPage';
 import Boxes from './components/Boxes';
+import Create from './components/CreateBox';
+import CreateRoom from './components/CreateRoom';
 
 function App() {
   return (
@@ -26,6 +28,12 @@ function App() {
           </Route>
           <Route exact path='/boxes'>
             <Boxes />
+          </Route>
+          <Route exact path='/addBox'>
+            <Create />
+          </Route>
+          <Route exact path='/addRoom'>
+            <Create />
           </Route>
         </Switch>
       </div>
