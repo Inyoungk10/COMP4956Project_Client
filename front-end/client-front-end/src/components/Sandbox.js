@@ -1,4 +1,8 @@
-
+/**
+ * Author: Inyoung Kang
+ * Revision Date: 11/18/2021
+ * Summary: Sandbox page renders the unity webgl build and displays box information
+*/
 import "./sandbox.css";
 import React from "react";
 import { Link } from "react-router-dom";

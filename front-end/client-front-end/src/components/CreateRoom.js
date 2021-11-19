@@ -1,10 +1,9 @@
 /**
  * Author: Inyoung Kang
  * Revision Date: 11/18/2021
- * Summary: CreateBox page using axios to connect to backend server and add boxes
+ * Summary: CreateRoom page using axios to connect to backend server and add rooms
 */
 import React, { Component } from "react";
-
 import axios from 'axios';
  
 export default class Create extends Component {
@@ -65,7 +64,8 @@ export default class Create extends Component {
     };
  
     axios
-      .post("http://localhost:8888/619499d8e15fd0d9eb530012/rooms/1/addBox", newBox)
+        // endpoint for adding room
+      .post("", newBox)
       .then((res) => console.log("From res.data:" + res.data));
  
     // We will empty the state after posting the data to the database
@@ -85,26 +85,46 @@ export default class Create extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Name: </label>
-            <TextField id="standard-basic" label="Name" variant="standard" value={this.state.Name}
-              onChange={this.onChangeName} />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.Name}
+              onChange={this.onChangeName}
+            />
           </div>
           <div className="form-group">
             <label>Height: </label>
-            <TextField id="standard-basic" label="Height" variant="standard" value={this.state.Height}
-              onChange={this.onChangeHeight} />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.Height}
+              onChange={this.onChangeHeight}
+            />
           </div>
           <div className="form-group">
             <label>Width:  </label>
-            <TextField id="standard-basic" label="Width" variant="standard" value={this.state.Width}
-              onChange={this.onChangeWidth} />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.Width}
+              onChange={this.onChangeWidth}
+            />
           </div>
           <div className="form-group">
             <label>Length: </label>
-            <TextField id="standard-basic" label="Length" variant="standard" value={this.state.Length}
-              onChange={this.onChangeLength} />
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.Length}
+              onChange={this.onChangeLength}
+            />
           </div>
           <div className="form-group">
-          <Button variant="contained" type="submit">submit</Button>
+            <input
+              type="submit"
+              value="Create Box"
+              className="btn btn-primary"
+            />
           </div>
         </form>
       </div>

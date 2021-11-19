@@ -6,6 +6,7 @@ import Sandbox from './components/Sandbox';
 import RoomPage from './components/RoomPage';
 import Boxes from './components/Boxes';
 import Create from './components/CreateBox';
+import CreateRoom from './components/CreateRoom';
 
 function App() {
   return (
@@ -28,7 +29,10 @@ function App() {
           <Route exact path='/boxes'>
             <Boxes />
           </Route>
-          <Route exact path='/addbox'>
+          <Route exact path='/addBox'>
+            <Create />
+          </Route>
+          <Route exact path='/addRoom'>
             <Create />
           </Route>
         </Switch>
