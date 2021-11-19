@@ -1,49 +1,77 @@
-/**
- * Author: Inyoung Kang
- * Revision Date: 11/18/2021
- * Summary: Sandbox page renders the unity webgl build and displays box information
-*/
-import "./sandbox.css";
-import React from "react";
-import { Link } from "react-router-dom";
-import reactDOM from 'react-dom';
+import React, { Component } from 'react';
+import axios from 'axios';
+import Unity, { UnityContext } from 'react-unity-webgl'
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
-const Sandbox = () => {
+const unityContext = new UnityContext({
+    loaderUrl: "\\build\\roomity\\Build.loader.js",
+    dataUrl: "\\build\\roomity\\Build.data",
+    frameworkUrl: "\\build\\roomity\\Build.framework.js",
+    codeUrl: "\\build\\roomity\\Build.wasm",
+  });
+
   
 
-  function displayBox(i) {
-    
-  }
+export default class SandboxNew extends Component {
+    state = {
+        persons: []
+      }
 
-  return (
-    <div>
-      <div>
-        <h1 class="heading">Room 1</h1>
-        <div class="w-row">
-          <div class="column-2 w-col w-col-9">
-            <button id="box1" class="box w-button" onclick={displayBox(1)}>
-              Test Box 1
-            </button>
-            <button id="box2" class="box w-button" onclick={displayBox(2)}>
-              Test Box 2
-            </button>
-            <button id="box3" class="box w-button" onclick={displayBox(3)}>
-              Test Box 3
-            </button>
-          </div>
-          <div class="w-col w-col-3">
-            <h1>Box List Item</h1>
-            <div id="itemsList" role="list"></div>
-          </div>
-        </div>
-      </div>
-      <Link to="/Homepage">
-      <button class="primary-button w-button">
-        My Rooms
-      </button>
-      </Link>
-    </div>
-  );
-};
+    // function to strip boxes from data recieved
+    getBoxes() {
+      console.log(this.state.persons);
+    }
 
-export default Sandbox;
+    componentDidMount() {
+      // replace with user box
+        axios.get(`https://jsonplaceholder.typicode.com/users`)
+          .then(res => {
+            const persons = res.data;
+            this.setState({ persons });
+          })
+      }
+
+    useEffect() {
+        unityContext.on("canvas", function (canvas) {
+          canvas.width = 100;
+          canvas.height = 50;
+        });
+      };
+
+    render() {
+        return (
+            <Grid container spacing={2} columns={10}>
+                <Grid item xs={5}>
+                    <h1>Sandbox</h1>
+                    <div style={{display: 'table-row'}}>
+                        <div style={{width: '600px', display: 'table-cell'}}> 
+                        <Unity
+                        unityContext={unityContext}
+                        matchWebGLToCanvasSize={false}
+                        style={{ width: "900px", height: "640px" }}
+                        /></div>
+                    </div>
+                </Grid>
+                <Grid item xs={5}>
+                    <Button variant="contained" onClick={() => { this.getBoxes() }}>View Info</Button>
+                    <div id="boxInfo" style={{'background-color': 'Beige'}}>
+                        <ul>
+                          
+                            { this.state.persons.map(person => 
+                            <div>
+                                <li>
+                                  {person.name}
+                                </li>
+                                <li>
+                                  {person.address.street}
+                                </li>
+                            </div>
+                            )}
+                        </ul>   
+                    </div>
+                    
+                </Grid>
+            </Grid>
+        )};
+}
