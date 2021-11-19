@@ -50,7 +50,7 @@ const Navbar = () => {
                         Roomity(?) Name pending
                         </Typography>
                     
-                        <Button color="inherit" onClick={logout}>Login</Button>
+                        <Button color="inherit" onClick={logout}>Logout</Button>
                     </Toolbar>
                 </AppBar>
                 </Box>

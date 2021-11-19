@@ -3,6 +3,7 @@ import axios from 'axios';
 import Unity, { UnityContext } from 'react-unity-webgl'
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import qs from 'qs';
 
 const unityContext = new UnityContext({
     loaderUrl: "\\build\\roomity\\Build.loader.js",
@@ -11,26 +12,40 @@ const unityContext = new UnityContext({
     codeUrl: "\\build\\roomity\\Build.wasm",
   });
 
-  
+const config = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+}
+
+const data = qs.stringify({
+  UserID: '619499d8e15fd0d9eb530012',
+});
+
+const URL = 'http://localhost:3030/rooms';
 
 export default class SandboxNew extends Component {
     state = {
-        persons: []
+        Room: []
       }
 
     // function to strip boxes from data recieved
     getBoxes() {
-      console.log(this.state.persons);
+      console.log(URL + data + config.headers['Content-Type']);
+      console.log(this.state.Room);
     }
 
     componentDidMount() {
-      // replace with user box
-        axios.get(`https://jsonplaceholder.typicode.com/users`)
-          .then(res => {
-            const persons = res.data;
-            this.setState({ persons });
-          })
+      try { 
+        axios.get(URL, data, config).then(res => {
+          const Room = res;
+          console.log("roomdata"+  res);
+          this.setState({ Room });
+        })
+      } catch (error) {
+        console.log(error)
       }
+    }
 
     useEffect() {
         unityContext.on("canvas", function (canvas) {
@@ -55,21 +70,21 @@ export default class SandboxNew extends Component {
                 </Grid>
                 <Grid item xs={5}>
                     <Button variant="contained" onClick={() => { this.getBoxes() }}>View Info</Button>
-                    <div id="boxInfo" style={{'background-color': 'Beige'}}>
+                    {/* <div id="boxInfo" style={{'background-color': 'Beige'}}>
                         <ul>
                           
-                            { this.state.persons.map(person => 
+                            { this.state.Room.map(Room => 
                             <div>
                                 <li>
-                                  {person.name}
+                                  {Room._id}
                                 </li>
                                 <li>
-                                  {person.address.street}
+                                  {Room}
                                 </li>
                             </div>
                             )}
                         </ul>   
-                    </div>
+                    </div> */}
                     
                 </Grid>
             </Grid>
