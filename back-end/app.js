@@ -1,17 +1,17 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import User from './models/user.js';
-import auth from './middleware/auth.js';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const User = require('./models/user');
+const auth = require('./middleware/auth');
 
 const app = express();
-const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5555;
 app.use(cors());
 app.use(express.json());
 app.use(require("./routes/Get"));
@@ -75,10 +75,10 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
+const MONGOPORT = process.env.MONGOPORT || 3030;
 // app.listen(port, () => console.log(`listening on port ${port}...`));
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
+    .then(() => app.listen(MONGOPORT, () => console.log(`Server running on port ${MONGOPORT}`)))
     .catch((error) => console.log(error.message));
 
 // mongoose.set('useFindAndModify', false);
