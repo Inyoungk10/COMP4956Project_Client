@@ -2,7 +2,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 //import Homepage from './components/Homepage';
 import Auth from './components/Auth';
-import Sandbox from './components/sandbox';
+import Sandbox from './components/Sandbox';
 import RoomPage from './components/RoomPage';
 import Boxes from './components/Boxes';
 import Create from './components/CreateBox';
