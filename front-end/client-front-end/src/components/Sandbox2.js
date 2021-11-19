@@ -8,12 +8,12 @@ const unityContext = new UnityContext({
     loaderUrl: "\\build\\roomity\\Build.loader.js",
     dataUrl: "\\build\\roomity\\Build.data",
     frameworkUrl: "\\build\\roomity\\Build.framework.js",
-    codeUrl: "\\build\\roomity\\Build.wasm",
+    codeUrl: "\\roomity.build\\Build.wasm",
   });
 
   
 
-export default class SandboxNew extends Component {
+export default class SandboxTwo extends Component {
     state = {
         persons: []
       }
@@ -57,17 +57,7 @@ export default class SandboxNew extends Component {
                     <Button variant="contained" onClick={() => { this.getBoxes() }}>View Info</Button>
                     <div id="boxInfo" style={{'background-color': 'Beige'}}>
                         <ul>
-                          
-                            { this.state.persons.map(person => 
-                            <div>
-                                <li>
-                                  {person.name}
-                                </li>
-                                <li>
-                                  {person.address.street}
-                                </li>
-                            </div>
-                            )}
+                            { this.state.persons.map(person => <li>{person.name}</li>)}
                         </ul>   
                     </div>
                     

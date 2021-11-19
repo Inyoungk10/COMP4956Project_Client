@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom'
 
 
 const Boxes = () => {
+
     const boxlist = [
         {
           id: '1',
@@ -34,26 +35,25 @@ const Boxes = () => {
         },
       ];
 
+
     function addBox() {
 
         const addBoxDiv = (
             <div>
-                    <form>
-                    <label>Box Name:
-                    <input type="text" placeholder="BoxName"/>
-                    </label>
-                    <label>Enter Box Dimensions:
-                    <input type="text" placeholder="x"/>
-                    <input type="text"  placeholder="y"/>
-                    <input type="text"  placeholder="z"/>
-                    </label>
-                    <Button type="submit" value="submit" >Add Box</Button>
-                    </form>
+                <form>
+                <label>Box Name:
+                <input type="text" placeholder="BoxName"/>
+                </label>
+                <label>Enter Box Dimensions:
+                <input type="text" placeholder="x"/>
+                <input type="text"  placeholder="y"/>
+                <input type="text"  placeholder="z"/>
+                </label>
+                <Button type="submit" value="submit" >Add Box</Button>
+                </form>
             </div>
-    
-            
-             );
-             ReactDOM.render(addBoxDiv, document.getElementById('divAddBox'))
+        );
+        ReactDOM.render(addBoxDiv, document.getElementById('divAddBox'))
         //alert('Box Added!');
     }
 
@@ -70,7 +70,7 @@ const Boxes = () => {
          console.log(box.name);
          console.log(box.items);
 
-         const divItemList = (
+        const divItemList = (
         <div>
             {box.name}
             <ul>
@@ -91,7 +91,7 @@ const Boxes = () => {
 
         
          );
-         ReactDOM.render(divItemList, document.getElementById('divItems'))
+         //ReactDOM.render(divItemList, document.getElementById('divItems'))
          
 
         //return box.items
