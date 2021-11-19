@@ -1,3 +1,7 @@
+/* Author: Gurjot Sandher
+* Revision Date: 11/18/2021
+* Summary: CSS for the RoomPage
+*/
 .room_page {
     display: grid;
     grid-template-columns: 15% 30% 10% 30% 15%;
@@ -47,12 +51,12 @@
     align-self:stretch;
     height:100%;
     width: 100%;
-    background-color: hotpink;
+    /* background-color: hotpink; */
 }
 
 .boxes {
     align-self:stretch;
     height:100%;
     width: 100%;
-    background-color: hotpink;
+    /* background-color: hotpink; */
 }
