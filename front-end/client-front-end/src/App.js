@@ -21,7 +21,7 @@ function App() {
           <Route exact path='/sandbox'>
             <Sandbox />
           </Route>
-          <Route exact path='/room_page'>
+          <Route exact path='/room'>
             <RoomPage />
           </Route>
           <Route exact path='/boxes'>
