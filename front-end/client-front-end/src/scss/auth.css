@@ -1,12 +1,22 @@
 #submissionForm {
     margin: 0 auto;
     width: 400px;
-    height: 400px;
+    height: fit-content;
     padding: 5px;
     text-align: center;
     background-color: rgb(137, 198, 255);
+    border-radius: 10px;
 }
 
 input {
     margin-bottom: 20px;
+}
+
+.formSwitch {
+    cursor: pointer;
+    color: blue;
+}
+
+.formSwitch:hover {
+    color:rgb(255, 0, 234);
 }

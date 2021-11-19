@@ -32,7 +32,7 @@ app.listen(port, () => {
   });
   console.log(`Server is running on port: ${port}`);
 });
-const CONNECTION_URL = 'mongodb+srv://client-team:client-team123@cluster0.agrca.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb+srv://client-team:client-team123@cluster0.agrca.mongodb.net/roomalityDb?retryWrites=true&w=majority';
 
 
 // not sure if they need to be async or not.
