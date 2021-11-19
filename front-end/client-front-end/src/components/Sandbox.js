@@ -1,3 +1,9 @@
+/**
+ * Author: Inyoung Kang
+ * Revision Date: 2021
+ * Summary: Sandbox uses unity webGL to display webgl build and displays box information
+ * ToDo: display information, add mouse clicks
+ */
 import React, { Component } from 'react';
 import axios from 'axios';
 import Unity, { UnityContext } from 'react-unity-webgl'
@@ -33,7 +39,7 @@ export default class SandboxNew extends Component {
               'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(res => {
-          const Room = res;
+          const Room = res.data.Rooms;
           console.log("roomdata"+  res);
           this.setState({ Room });
         })
