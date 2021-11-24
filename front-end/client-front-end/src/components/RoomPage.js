@@ -5,10 +5,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import * as api from '../api/index.js';
+import { useHistory } from 'react-router';
 
 //import the rooms here and use map to iterate over the list object containing <Room/> component
 // do the above for the boxes as well
-/* Author: Gurjot Sandher
+/* Author: Gurjot Sandher, Cameron Wark
 * Revision Date: 11/18/2021
 * Summary: RoomPage for list of rooms and corresponding boxes
 */
@@ -16,6 +17,7 @@ import * as api from '../api/index.js';
     const RoomPage = () => {
         const [roomList, setRoomList] = useState([]);
         const [boxList, setBoxList] = useState([]);
+        const history = useHistory();
 
         const URL = 'http://localhost:3030/rooms';
 
@@ -68,16 +70,20 @@ import * as api from '../api/index.js';
             const name = document.getElementById('roomNameField').value;
 
             const roomObj = {
-                height,
-                width,
-                depth,
-                name
+                Height: height,
+                Width: width,
+                Depth: depth,
+                RoomName: name
             }
 
             console.log(roomObj);
 
             const { data } = await api.addRoom(roomObj);
             console.log(data);
+        }
+
+        const addRoomRedirect = () => {
+            history.push('/addRoom');
         }
 
         return(
@@ -88,15 +94,17 @@ import * as api from '../api/index.js';
                 {/* <button className='add_room' >Add Room </button> */}
 
                 <div>
-                    <button id="addRoomButton" onClick={addRoomButtonClick}>Add Room</button>
+                    <button id="addRoomButton" onClick={addRoomRedirect}>Add Room</button>
                     <div id="addRoomForm" style={{display: 'none'}}>
-                        <input id="roomNameField" placeholder="Room Name" />
-                        <input id="heightField" placeholder="Height" />
-                        <input id="widthField" placeholder="Width" />
-                        <input id="depthField" placeholder="Depth" />
-                        <button onClick={(e) => addRoom(e)}>Submit</button>
+                        <form>
+                        <input id="roomNameField" placeholder="Room Name" required={true} />
+                        <input id="heightField" placeholder="Height" required={true} />
+                        <input id="widthField" placeholder="Width" required={true} />
+                        <input id="depthField" placeholder="Depth" required={true} />
+                        <button onSubmit={(e) => addRoom(e)}>Submit</button>
                         {/* <button onSubmit={this.addRoom()}>Submit</button> */}
                         {/* <button onClick={(e) => addRoomCancel(e)}>Cancel</button> */}
+                        </form>
                     </div>
                 </div>
                 <div className="rooms_container">

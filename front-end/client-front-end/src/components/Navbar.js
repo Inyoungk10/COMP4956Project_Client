@@ -38,8 +38,6 @@ const Navbar = () => {
 
     return(
         <div>
-            <Button color="inherit" component={Link} to="/rooms">Home</Button>
-
             { user ? (
                 <>
                 <Box sx={{ flexGrow: 1 }}>
@@ -57,6 +55,7 @@ const Navbar = () => {
                 </>
             ) : (
                 <>
+                <Button color="inherit" component={Link} to="/rooms">Home</Button>
                 <Button color="inherit" component={Link} to="/login">Login</Button>
                 </>
             ) }            
