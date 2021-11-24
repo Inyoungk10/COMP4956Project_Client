@@ -4,6 +4,7 @@ import Room from './Rooms';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import * as api from '../api/index.js';
 
 //import the rooms here and use map to iterate over the list object containing <Room/> component
 // do the above for the boxes as well
@@ -44,12 +45,60 @@ import { useEffect } from 'react';
             setBoxList( obj );
         }
 
+        const addRoomCancel = (e) => {
+            e.preventDefault();
+            const form = document.getElementById('addRoomForm');
+            const button = document.getElementById('addRoomButton');
+            form.style.display = 'none';
+            button.style.display = 'visible';
+        }
+
+        const addRoomButtonClick = () => {
+            const form = document.getElementById('addRoomForm');
+            const button = document.getElementById('addRoomButton');
+            form.style.display = 'inline';
+            button.style.display = 'none';
+        }
+
+        const addRoom = async (e) => {
+            e.preventDefault();
+            const height = document.getElementById('heightField').value;
+            const width = document.getElementById('widthField').value;
+            const depth = document.getElementById('depthField').value;
+            const name = document.getElementById('roomNameField').value;
+
+            const roomObj = {
+                height,
+                width,
+                depth,
+                name
+            }
+
+            console.log(roomObj);
+
+            const { data } = await api.addRoom(roomObj);
+            console.log(data);
+        }
+
         return(
             <div className="room_page">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
                 a new list object / send this information to the mongoDB database*/}
 
-                <button className='add_room'>Add Room </button>
+                {/* <button className='add_room' >Add Room </button> */}
+
+                <div>
+                    <button id="addRoomButton" onClick={addRoomButtonClick}>Add Room</button>
+                    <div id="addRoomForm" style={{display: 'none'}}>
+                        <input id="roomNameField" placeholder="Room Name" />
+                        <input id="heightField" placeholder="Height" />
+                        <input id="widthField" placeholder="Width" />
+                        <input id="depthField" placeholder="Depth" />
+                        <button onClick={(e) => addRoom(e)}>Submit</button>
+                        {/* <button onSubmit={this.addRoom()}>Submit</button> */}
+                        {/* <button onClick={(e) => addRoomCancel(e)}>Cancel</button> */}
+                    </div>
+                </div>
                 <div className="rooms_container">
                     <h3>Rooms</h3>
                         <div className="rooms">
