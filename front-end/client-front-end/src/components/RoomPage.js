@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 
     const RoomPage = () => {
         const [roomList, setRoomList] = useState([]);
+        const [boxList, setBoxList] = useState([]);
 
         const URL = 'http://localhost:3030/rooms';
 
@@ -27,17 +28,20 @@ import { useEffect } from 'react';
                 }
             }).then(res => {
               let roomList = res.data;
-              console.log("res.data.Rooms: ",  res.data.Rooms);
-              console.log("res.data: ",  res.data);
+            //   console.log("res.data.Rooms: ",  res.data.Rooms);
+            //   console.log("res.data: ",  res.data);
               roomList = res.data.Rooms;
               setRoomList( [roomList] );
             })    
-            console.log("UseEffect")
+            // console.log("UseEffect")
         }, [])
 
         let showBoxes = (obj) => {
-            console.log("showBoxes()");
-            console.log("obj is " , obj);
+            setBoxList( [] );
+            // console.log("showBoxes()");
+            //obj contains box information
+            console.log("showboxes() obj is " , obj);
+            setBoxList( obj );
         }
 
         return(
@@ -52,7 +56,7 @@ import { useEffect } from 'react';
                             {roomList.map((room)=>{
                                 return(
                                     <div>
-                                        <Room handleClick={() => showBoxes} room={room}/>
+                                        <Room handleClick={showBoxes} room={room}/>
                                     </div>
                                 )
                              })} 
@@ -61,8 +65,14 @@ import { useEffect } from 'react';
                 <div className ="boxes_container">
                     <h3>Boxes</h3>
                         <div className="boxes">
-                            {/* <p key={room.RoomID}>{room.RoomName}</p>
-                            <p>Height: {room.Height}, Width: {room.Width}, Depth: {room.Depth}</p> */}
+                        {boxList.map((box)=>{
+                                return(
+                                    <div>
+                                        <p>{box.BoxName}</p>
+                                        <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
+                                    </div>
+                                )
+                             })} 
                         </div>
                     {/* Box Component */}                
                 </div>
