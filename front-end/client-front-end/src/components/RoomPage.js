@@ -31,7 +31,7 @@ import { useEffect } from 'react';
             //   console.log("res.data.Rooms: ",  res.data.Rooms);
             //   console.log("res.data: ",  res.data);
               roomList = res.data.Rooms;
-              setRoomList( [roomList] );
+              setRoomList( roomList );
             })    
             // console.log("UseEffect")
         }, [])

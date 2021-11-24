@@ -5,7 +5,7 @@ import React from 'react';
 */
 
 const Rooms = (props) => {
-    const room = props.room[0];
+    const room = props.room;
     // console.log("Rooms.js shows data as ", room);
     // console.log('room', room);
 
