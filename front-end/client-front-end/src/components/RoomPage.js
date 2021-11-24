@@ -94,7 +94,7 @@ import { useHistory } from 'react-router';
                 {/* <button className='add_room' >Add Room </button> */}
 
                 <div>
-                    <button id="addRoomButton" onClick={addRoomRedirect}>Add Room</button>
+                    <button id="addRoomButton" onClick={addRoomRedirect}>Create New Room</button>
                     <div id="addRoomForm" style={{display: 'none'}}>
                         <form>
                         <input id="roomNameField" placeholder="Room Name" required={true} />
