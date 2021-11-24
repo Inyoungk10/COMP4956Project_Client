@@ -35,6 +35,11 @@ import { useEffect } from 'react';
             console.log("UseEffect")
         }, [])
 
+        let showBoxes = (obj) => {
+            console.log("showBoxes()");
+            console.log("obj is " , obj);
+        }
+
         return(
             <div className="room_page">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
@@ -47,7 +52,7 @@ import { useEffect } from 'react';
                             {roomList.map((room)=>{
                                 return(
                                     <div>
-                                        <Room room={room}/>
+                                        <Room handleClick={() => showBoxes} room={room}/>
                                     </div>
                                 )
                              })} 
@@ -56,7 +61,8 @@ import { useEffect } from 'react';
                 <div className ="boxes_container">
                     <h3>Boxes</h3>
                         <div className="boxes">
-
+                            {/* <p key={room.RoomID}>{room.RoomName}</p>
+                            <p>Height: {room.Height}, Width: {room.Width}, Depth: {room.Depth}</p> */}
                         </div>
                     {/* Box Component */}                
                 </div>

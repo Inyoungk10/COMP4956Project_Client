@@ -9,8 +9,9 @@ const Rooms = (props) => {
     console.log("Rooms.js shows data as ", room);
     console.log('room', room);
 
+
     return(
-        <div>
+        <div onClick={props.handleClick(room)}>
             <p key={room.RoomID}>{room.RoomName}</p>
             <p>Height: {room.Height}, Width: {room.Width}, Depth: {room.Depth}</p>
         </div>
