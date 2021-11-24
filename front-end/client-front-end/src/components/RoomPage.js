@@ -47,41 +47,6 @@ import { useHistory } from 'react-router';
             setBoxList( obj );
         }
 
-        const addRoomCancel = (e) => {
-            e.preventDefault();
-            const form = document.getElementById('addRoomForm');
-            const button = document.getElementById('addRoomButton');
-            form.style.display = 'none';
-            button.style.display = 'visible';
-        }
-
-        const addRoomButtonClick = () => {
-            const form = document.getElementById('addRoomForm');
-            const button = document.getElementById('addRoomButton');
-            form.style.display = 'inline';
-            button.style.display = 'none';
-        }
-
-        const addRoom = async (e) => {
-            e.preventDefault();
-            const height = document.getElementById('heightField').value;
-            const width = document.getElementById('widthField').value;
-            const depth = document.getElementById('depthField').value;
-            const name = document.getElementById('roomNameField').value;
-
-            const roomObj = {
-                Height: height,
-                Width: width,
-                Depth: depth,
-                RoomName: name
-            }
-
-            console.log(roomObj);
-
-            const { data } = await api.addRoom(roomObj);
-            console.log(data);
-        }
-
         const addRoomRedirect = () => {
             history.push('/addRoom');
         }
@@ -95,17 +60,6 @@ import { useHistory } from 'react-router';
 
                 <div>
                     <button id="addRoomButton" onClick={addRoomRedirect}>Create New Room</button>
-                    <div id="addRoomForm" style={{display: 'none'}}>
-                        <form>
-                        <input id="roomNameField" placeholder="Room Name" required={true} />
-                        <input id="heightField" placeholder="Height" required={true} />
-                        <input id="widthField" placeholder="Width" required={true} />
-                        <input id="depthField" placeholder="Depth" required={true} />
-                        <button onSubmit={(e) => addRoom(e)}>Submit</button>
-                        {/* <button onSubmit={this.addRoom()}>Submit</button> */}
-                        {/* <button onClick={(e) => addRoomCancel(e)}>Cancel</button> */}
-                        </form>
-                    </div>
                 </div>
                 <div className="rooms_container">
                     <h3>Rooms</h3>
