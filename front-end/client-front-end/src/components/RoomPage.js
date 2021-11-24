@@ -10,52 +10,65 @@ import Room from './Rooms';
 
     const RoomPage = () => {
 
-        const myArray = [1,2,3,4,5];
-        const roomList = [
-            {
-                "id": 1,
-                "name": "den",
-                "height": 3,
-                "width": 5,
-                "depth": 8,
-                "Boxes": 
-                    [
-                        {
-                            "name":'KitchenBox',
-                            "height": '10', //height
-                            "width": '20', //width
-                            "depth": '10', //length
-                            "items": [
-                                'knife',
-                                'plates',
-                                'cups'
-                            ]
-                        },
-                        {
-                            "name":'BedRoombox',
-                            "height": '30', //height
-                            "width": '25', //width
-                            "depth": '19', //length
-                            "items": [
-                                'pillow',
-                                'mattress',
-                                'lamp'
-                            ]
-                        },                    {
-                            "name":'BathroomBox',
-                            "height": '22', //height
-                            "width": '76', //width
-                            "depth": '45', //length
-                        "items": [
-                            'shampoo',
-                            'soap',
-                            'comb'
-                        ]
-                    }
-                ]
+        // const myArray = [1,2,3,4,5];
+        // const roomList = [
+        //     {
+        //         "id": 1,
+        //         "name": "den",
+        //         "height": 3,
+        //         "width": 5,
+        //         "depth": 8,
+        //         "Boxes": 
+        //             [
+        //                 {
+        //                     "name":'KitchenBox',
+        //                     "height": '10', //height
+        //                     "width": '20', //width
+        //                     "depth": '10', //length
+        //                     "items": [
+        //                         'knife',
+        //                         'plates',
+        //                         'cups'
+        //                     ]
+        //                 },
+        //                 {
+        //                     "name":'BedRoombox',
+        //                     "height": '30', //height
+        //                     "width": '25', //width
+        //                     "depth": '19', //length
+        //                     "items": [
+        //                         'pillow',
+        //                         'mattress',
+        //                         'lamp'
+        //                     ]
+        //                 },                    {
+        //                     "name":'BathroomBox',
+        //                     "height": '22', //height
+        //                     "width": '76', //width
+        //                     "depth": '45', //length
+        //                 "items": [
+        //                     'shampoo',
+        //                     'soap',
+        //                     'comb'
+        //                 ]
+        //             }
+        //         ]
+        //     }
+        // ]
+        const URL = 'http://localhost:3030/rooms';
+
+        let uid = '619499d8e15fd0d9eb530012';
+            
+        axios.get(`http://localhost:3030/rooms/${uid}`, {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
             }
-        ]
-                
+        }).then(res => {
+          const roomList = res.data.Rooms;
+          console.log("roomdata"+  res);
+          this.setState({ Room });
+        })
 
         return(
             <div className="room_page">
