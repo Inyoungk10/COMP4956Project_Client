@@ -42,25 +42,27 @@ recordRoutes.route("/rooms/:uid").get(function (req, res) {
 recordRoutes.route("/rooms/addRoom").post(function (req, response) {
   let db_connect = dbo.getDb("roomalityDb");
 
-  console.log(req.body)
+  // Generate unique id
+  let roomID = uuidv4();
 
-  //Generate unique id
-  // let roomID = uuidv4();
+  var newRoom = {
+    RoomID: roomID,
+    Width: req.body.Width,
+    Height: req.body.Height,
+    Depth: req.body.Depth,
+    RoomName: req.body.RoomName
+  };
 
-  // var newRoom = {
-  //   RoomID: roomID,
-  //   Width: req.body.Width,
-  //   Height: req.body.Height,
-  //   Depth: req.body.Depth,
-  //   RoomName: req.body.RoomName
-  // };
-  // // add to db
-  // db_connect.collection("ScannedObjectsCollection").updateOne(
-  //   { UserID: ObjectId(req.body.UserID) },
-  //   {  $addToSet: { Rooms : newRoom } }
-  //   ).then(() => {
-  //     response.status(201);
-  //   });
+  console.log(newRoom);
+
+  // add to db
+  db_connect.collection("ScannedObjectsCollection").updateOne(
+    { UserID: ObjectId(req.body.UserID) },
+    {  $addToSet: { Rooms : newRoom } }
+    ).then(() => {
+      response.status(201);
+      response.send();
+    });
 
 });
 

@@ -36,13 +36,13 @@ const AddRoom = () => {
         <div>
             <h3>Add Room:</h3>
             <form onSubmit={handleSubmit}>
-                <TextField label='Room Name' value={roomName} onChange={(e) => setRoomName(e.target.value)} variant={textFieldVariant} />
+                <TextField label='Room Name' value={roomName} onChange={(e) => setRoomName(e.target.value)} variant={textFieldVariant} required />
                 <br />
-                <TextField label='Width' value={width} onChange={(e) => setWidth(e.target.value)} variant={textFieldVariant} />
+                <TextField label='Width' value={width} onChange={(e) => setWidth(e.target.value)} variant={textFieldVariant} required />
                 <br />
-                <TextField label='Height' value={height} onChange={(e) => setHeight(e.target.value)} variant={textFieldVariant} />
+                <TextField label='Height' value={height} onChange={(e) => setHeight(e.target.value)} variant={textFieldVariant} required />
                 <br />
-                <TextField label='Depth' value={depth} onChange={(e) => setDepth(e.target.value)} variant={textFieldVariant} />                
+                <TextField label='Depth' value={depth} onChange={(e) => setDepth(e.target.value)} variant={textFieldVariant} required />       
                 <br />
                 <Button type='submit'>Submit</Button>
                 <Button onClick={cancel}>Cancel</Button>
