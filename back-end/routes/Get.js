@@ -20,9 +20,9 @@ const ObjectId = require("mongodb").ObjectId;
 // return UserID object + room id + box ids+ + name
 
 // This section will help you get the respective user document
-recordRoutes.route("/rooms/:uid").get(function (req, res) {
+recordRoutes.route("/rooms/:email").get(function (req, res) {
   let db_connect = dbo.getDb("roomalityDb");
-  let myquery = { UserID: ObjectId(req.params.uid) };
+  let myquery = { email: req.params.email };
   console.log(myquery);
   db_connect  
       .collection("ScannedObjectsCollection")
@@ -146,7 +146,7 @@ recordRoutes.route("/delete/deleteRoom").delete((req, response) => {
         let message = "Room removed:\n" + req.body.RoomID ;
         response.status(200).send(message);
       }
-    console.log("1 room deleted");
+    //console.log("1 room deleted");
     response.status(res);
   });
 });
@@ -164,6 +164,7 @@ recordRoutes.route("/delete/deleteBox").delete((req, response) => {
       myquery,
       { $pull: { 'Rooms.$.Boxes': { BoxID: req.body.BoxID } } },
       function (err, obj) {
+        console.log(response);
       if (err){
         response.status(404).send("Error");
         throw err;
