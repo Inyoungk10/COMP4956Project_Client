@@ -17,13 +17,16 @@ const AddRoom = () => {
     const history = useHistory();
     const textFieldVariant = 'standard';
 
+    let profile = localStorage.getItem('profile');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const room = {
             Width: width,
             Height: height,
             Depth: depth,
-            RoomName: roomName
+            RoomName: roomName,
+            Email: JSON.parse(profile).result.email
         }
         console.log(room);
 
