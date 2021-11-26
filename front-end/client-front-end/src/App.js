@@ -9,7 +9,7 @@ import Boxes from './components/Boxes';
 import Create from './components/CreateBox';
 import CreateRoom from './components/CreateRoom';
 import AddRoom from './components/AddRoom';
-
+import AddBox from './components/AddBox';
 function App() {
   return (
     <Router>
@@ -35,7 +35,7 @@ function App() {
             <Boxes />
           </Route>
           <Route exact path='/addBox'>
-            <Create />
+            <AddBox />
           </Route>
           <Route exact path='/addRoom'>
             <AddRoom />

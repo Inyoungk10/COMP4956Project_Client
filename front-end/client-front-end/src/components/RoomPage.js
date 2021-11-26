@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import * as api from '../api/index.js';
 import { useHistory } from 'react-router';
+import { render } from 'react-dom';
 
 //import the rooms here and use map to iterate over the list object containing <Room/> component
 // do the above for the boxes as well
@@ -24,13 +25,18 @@ import { useHistory } from 'react-router';
         const [roomList, setRoomList] = useState([]);
         const [boxList, setBoxList] = useState([]);
         const history = useHistory();
+        console.log(roomList);
 
         const URL = 'http://localhost:3030/rooms';
+
+        let profile = localStorage.getItem('profile');
+        //console.log(profile);
+        let email  = JSON.parse(profile).result.email;
 
         let uid = '619499d8e15fd0d9eb530012';
 
         useEffect(() => {
-            axios.get(`http://localhost:3030/rooms/${uid}`, {
+            axios.get(`http://localhost:3030/rooms/${email}`, {
                 method: 'get',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -57,8 +63,18 @@ import { useHistory } from 'react-router';
             history.push('/addRoom');
         }
 
-        const addBoxRedirect = () => {
-            history.push('/addBox');
+        // function addBoxRedirect(key) {
+        //     history.push('/addBox', {RoomID : key});
+        // }
+
+        const addBoxRedirect = key => {
+            console.log(key);
+           history.push({
+                pathname:'/addBox',
+                state: {RoomID: key}
+            });
+
+                
         }
 
         return(
@@ -69,7 +85,7 @@ import { useHistory } from 'react-router';
                 {/* <button className='add_room' >Add Room </button> */}
 
                 <div>
-                    <button id="addRoomButton" onClick={addBoxRedirect}>Create New Room</button>
+                    <button id="addRoomButton" onClick={addRoomRedirect}>Create New Room</button>
                 </div>
                 <div className="rooms_container">
                     <h1>Rooms</h1>
@@ -86,12 +102,18 @@ import { useHistory } from 'react-router';
                 <div className ="boxes_container">
                     <h1>Boxes</h1>
                         <div className="boxes">
+
+                             {roomList?.map((room)=>{
+                                return(
+                                    <div>
+                                     <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(room.RoomID)}>Add New Box to {room.RoomName}</button> 
+                                    </div>
+                                )
+                             })}  
                         {boxList?.map((box)=>{
                                 return(
-                                    
                                     <div>
-                                        <h2>{box.BoxName}</h2>  
-                                        <button id="" onClick={addRoomRedirect}>Add New Box</button>                                
+                                        <h2>{box.BoxName}</h2>                                                                       
                                             <ul style={{margin: '30px'}}>
                                                 <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
                                                 <h3>Items</h3>
@@ -104,20 +126,6 @@ import { useHistory } from 'react-router';
                                             </ul>
                                      
                                     </div>
-                                //     <div>
-                                //   <ul>
-                                //     {Room.Boxes.map((Box) => 
-                                //   <li style={{margin: '30px'}} >
-                                //       {Box.BoxName}
-                                //         <ul>
-                                //         {Box.Items.map((Item) =>
-                                //         <li>{Item.ItemName}</li>
-                                //         )}
-                                //         </ul>
-                                //   </li>
-                                //   )}
-                                //   </ul>
-                                //   </div>
                                 )
                              })} 
                         </div>
