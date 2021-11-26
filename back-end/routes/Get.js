@@ -165,6 +165,7 @@ recordRoutes.route("/delete/deleteBox").delete((req, response) => {
       myquery,
       { $pull: { 'Rooms.$.Boxes': { BoxID: req.body.BoxID } } },
       function (err, obj) {
+        console.log(response);
       if (err){
         response.status(404).send("Error");
         throw err;

@@ -85,7 +85,7 @@ import { render } from 'react-dom';
         }
 
         let deleteRoom = (roomid) => {
-            axios.delete('http://localhost:8888/delete/deleteRoom', {
+            axios.delete('http://localhost:3030/delete/deleteRoom', {
                 method: 'delete',
                 headers: {
                     'Authorization': '*',
@@ -98,8 +98,19 @@ import { render } from 'react-dom';
             })
         }
 
-        let deleteBox = boxid => {
-            
+        let deleteBox = (roomid, boxid) => {
+            axios.delete('http://localhost:3030/delete/deleteBox', {
+                method: 'delete',
+                headers: {
+                    'Authorization': '*',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    RoomID: roomid,
+                    email: email,
+                    BoxID: boxid
+                }
+            })
         }
 
         return(
@@ -119,7 +130,7 @@ import { render } from 'react-dom';
                                 return(
                                     <div>
                                         <Room handleClick={showBoxes} room={room}/>
-                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
+                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID)}>Delete Room</button>
                                     </div>
                                 )
                              })} 
