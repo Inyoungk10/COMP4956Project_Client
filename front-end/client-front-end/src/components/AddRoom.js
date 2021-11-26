@@ -1,3 +1,6 @@
+/**
+ * Author: Cameron Wark
+*/
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '@mui/material/Button';

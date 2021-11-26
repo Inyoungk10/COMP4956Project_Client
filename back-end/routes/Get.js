@@ -54,7 +54,7 @@ recordRoutes.route("/rooms/addRoom").post(function (req, response) {
   };
 
   console.log(newRoom);
-
+  console.log(req.body);
   // add to db
   db_connect.collection("ScannedObjectsCollection").updateOne(
     { UserID: ObjectId(req.body.UserID) },
