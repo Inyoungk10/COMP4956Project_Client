@@ -17,7 +17,14 @@ import { render } from 'react-dom';
 *
 * Author: Francis Sapanta
 * Revision Date: 11/25/2021
-* Summary: RoomPage shows all the boxes AND items on click, no longer need the boxes page.
+* Summary: RoomPage shows all the boxes and items on click, no longer need the boxes page.
+*
+*
+* Author: Francis Sapanta, Jacob Tan
+* Revision Date: 11/26/2021
+* Summary: Room and Box functionalities work with database
+*
+*
 */
 
 
@@ -36,7 +43,7 @@ import { render } from 'react-dom';
         let uid = '619499d8e15fd0d9eb530012';
 
         useEffect(() => {
-            axios.get(`http://localhost:3030/rooms/${email}`, {
+            axios.get(`http://localhost:8888/rooms/${email}`, {
                 method: 'get',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -77,6 +84,24 @@ import { render } from 'react-dom';
                 
         }
 
+        let deleteRoom = (roomid) => {
+            axios.delete('http://localhost:8888/delete/deleteRoom', {
+                method: 'delete',
+                headers: {
+                    'Authorization': '*',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: {
+                    RoomID: roomid,
+                    email: email
+                }
+            })
+        }
+
+        let deleteBox = boxid => {
+            
+        }
+
         return(
             <div className="room_page">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
@@ -94,6 +119,7 @@ import { render } from 'react-dom';
                                 return(
                                     <div>
                                         <Room handleClick={showBoxes} room={room}/>
+                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
                                     </div>
                                 )
                              })} 
@@ -108,12 +134,17 @@ import { render } from 'react-dom';
                                     <div>
                                      <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(room.RoomID)}>Add New Box to {room.RoomName}</button> 
                                     </div>
+
+                                    
                                 )
-                             })}  
+                             })} 
+                             
+                    
                         {boxList?.map((box)=>{
                                 return(
                                     <div>
-                                        <h2>{box.BoxName}</h2>                                                                       
+                                        <h2>{box.BoxName}</h2>
+                                        <button name="deleteBoxBtn" onClick={() => deleteBox(box.BoxID)}>Delete Box</button>                                                                       
                                             <ul style={{margin: '30px'}}>
                                                 <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
                                                 <h3>Items</h3>
@@ -128,6 +159,8 @@ import { render } from 'react-dom';
                                     </div>
                                 )
                              })} 
+
+
                         </div>
                     {/* Box Component */}                
                 </div>

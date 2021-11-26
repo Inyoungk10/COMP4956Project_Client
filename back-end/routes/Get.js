@@ -147,7 +147,7 @@ recordRoutes.route("/delete/deleteRoom").delete((req, response) => {
         let message = "Room removed:\n" + req.body.RoomID ;
         response.status(200).send(message);
       }
-    console.log("1 room deleted");
+    //console.log("1 room deleted");
     response.status(res);
   });
 });
