@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('./models/user');
+const ScannedObjectCollection = require('./models/scannedObjectCollection');
 const auth = require('./middleware/auth');
 
 const app = express();
@@ -44,7 +45,8 @@ app.post('/signin', async (req, res) => {
 
     try {
         console.log(email, password)
-        const existingUser = await User.findOne({ email });
+        // const existingUser = await User.findOne({ email });
+        const existingUser = await ScannedObjectCollection.findOne({ email });
 
         console.log(existingUser);
 
@@ -66,14 +68,14 @@ app.post('/signup', async (req, res) => {
     const { firstName, lastName, email, password, repeatPassword } = req.body;
 
     try {
-        const existingUser = await User.findOne({ email });
+        const existingUser = await ScannedObjectCollection.findOne({ email });
         if(existingUser) return res.status(400).json({ message: "User already exists." });
 
         if(password !== repeatPassword) return res.status(400).json({ message: "Passwords don't match." });
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
+        const result = await ScannedObjectCollection.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
 
         const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
 

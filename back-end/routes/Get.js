@@ -44,7 +44,6 @@ recordRoutes.route("/rooms/addRoom").post(function (req, response) {
 
   // Generate unique id
   let roomID = uuidv4();
-
   var newRoom = {
     RoomID: roomID,
     Width: req.body.Width,
@@ -54,10 +53,10 @@ recordRoutes.route("/rooms/addRoom").post(function (req, response) {
   };
 
   console.log(newRoom);
-
+  console.log(req.body);
   // add to db
   db_connect.collection("ScannedObjectsCollection").updateOne(
-    { UserID: ObjectId(req.body.UserID) },
+    { email: req.body.Email },
     {  $addToSet: { Rooms : newRoom } }
     ).then(() => {
       response.status(201);
