@@ -84,7 +84,7 @@ recordRoutes.route("/rooms/addBox").post(function (req, response) {
       "Rooms.RoomID": req.body.RoomID },
     {  $addToSet: { "Rooms.$.Boxes": newBox } }
     ).then(() => {
-      response.status(201);
+      response.status(201).send("Box added: " + boxID);
     });
 });
 
@@ -100,7 +100,7 @@ recordRoutes.route("/box/addItem").post(function (req, response) {
   // add to db
 
   db_connect.collection("ScannedObjectsCollection").updateOne(
-    { UserID: ObjectId(req.body.UserID),
+    { email: req.body.Email ,
       "Rooms.RoomID": req.body.RoomID },
     {  $addToSet: { "Rooms.$[room].Boxes.$[box].Items": newItem } },
     { arrayFilters: [{ 'room.RoomID' : req.body.RoomID }, { 'box.BoxID' : req.body.BoxID}]}
@@ -130,21 +130,74 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
-// This section will help you delete a record
-// recordRoutes.route("/:id").delete((req, response) => {
-//   let db_connect = dbo.getDb();
-//   let myquery = { _id: ObjectId( req.params.id )};
-//   db_connect.collection("records").deleteOne(myquery, function (err, obj) {
-//     if (err){
-//       res.status(404).send("Error");
-//       throw err;
-//     } else {
-//       let message = "New Box Added:\n" + boxID ;
-//       res.status(200).send("Success"));
-//     }
-//     console.log("1 document deleted");
-//     response.status(obj);
-//   });
-// });
+//This section will help you delete a room
+recordRoutes.route("/delete/deleteRoom").delete((req, response) => {
+  let db_connect = dbo.getDb();
+  let myquery = { email:  req.body.Email };
+  db_connect
+    .collection("ScannedObjectsCollection")
+    .updateOne(
+      myquery,
+      { $pull: { 'Rooms': { RoomID: req.body.RoomID } } },
+      function (err, res) {
+      if (err){
+        response.status(404).send("Error");
+        throw err;
+      } else {
+        let message = "Room removed:\n" + req.body.RoomID ;
+        response.status(200).send(message);
+      }
+    console.log("1 room deleted");
+    response.status(res);
+  });
+});
+
+//This section will help you delete a box
+recordRoutes.route("/delete/deleteBox").delete((req, response) => {
+  let db_connect = dbo.getDb();
+  let myquery = { 
+                  email:  req.body.Email,
+                  'Rooms.RoomID': req.body.RoomID
+                };
+  db_connect
+    .collection("ScannedObjectsCollection")
+    .updateOne(
+      myquery,
+      { $pull: { 'Rooms.$.Boxes': { BoxID: req.body.BoxID } } },
+      function (err, obj) {
+      if (err){
+        response.status(404).send("Error");
+        throw err;
+      } else {
+        let message = "Box removed:\n" + req.body.BoxID ;
+        response.status(200).send(message);
+      }
+    console.log("1 box deleted");
+    response.status(obj);
+  });
+});
+
+//This section will help you delete an item
+recordRoutes.route("/delete/deleteItem").delete((req, response) => {
+  let db_connect = dbo.getDb();
+  let myquery = { email:  req.body.email };
+  db_connect
+    .collection("ScannedObjectsCollection")
+    .updateOne(
+      myquery,
+      { $pull: { 'Rooms.$[room].Boxes.$[box].Items': { ItemID: req.body.ItemID } } },
+      { arrayFilters: [{ 'room.RoomID' : req.body.RoomID }, { 'box.BoxID' : req.body.BoxID}]},
+      function (err, obj) {
+      if (err){
+        response.status(404).send("Error");
+        throw err;
+      } else {
+        let message = "Item removed:\n" + req.body.ItemID ;
+        response.status(200).send(message);
+      }
+    console.log("1 item deleted");
+    response.status(obj);
+  });
+});
 
 module.exports = recordRoutes;
