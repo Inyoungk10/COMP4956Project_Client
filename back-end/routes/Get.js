@@ -58,8 +58,7 @@ recordRoutes.route("/rooms/addRoom").post(function (req, response) {
     { email: req.body.Email },
     {  $addToSet: { Rooms : newRoom } }
     ).then(() => {
-      response.status(201);
-      response.send();
+      response.status(201).send('Room added: ' + roomID);
     });
 
 });
@@ -180,7 +179,7 @@ recordRoutes.route("/delete/deleteBox").delete((req, response) => {
 //This section will help you delete an item
 recordRoutes.route("/delete/deleteItem").delete((req, response) => {
   let db_connect = dbo.getDb();
-  let myquery = { email:  req.body.email };
+  let myquery = { email:  req.body.Email };
   db_connect
     .collection("ScannedObjectsCollection")
     .updateOne(
