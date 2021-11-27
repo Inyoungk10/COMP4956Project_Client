@@ -76,11 +76,11 @@ import { render } from 'react-dom';
         //     history.push('/addBox', {RoomID : key});
         // }
 
-        const addBoxRedirect = key => {
-            console.log(key);
+        const addBoxRedirect = roomid => {
+            console.log(roomid);
            history.push({
                 pathname:'/addBox',
-                state: {RoomID: key}
+                state: {RoomID: roomid}
             });
 
                 
@@ -88,6 +88,11 @@ import { render } from 'react-dom';
 
         const addItem = (roomid, boxid) => {
             console.log("add item to" + roomid + "in" + boxid);
+            history.push({
+                pathname:'/addItem',
+                state: {RoomID: roomid,
+                        BoxID: boxid}
+            });
         }
 
         const getRooms = async () =>{

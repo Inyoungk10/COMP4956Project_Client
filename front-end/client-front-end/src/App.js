@@ -10,6 +10,7 @@ import Create from './components/CreateBox';
 import CreateRoom from './components/CreateRoom';
 import AddRoom from './components/AddRoom';
 import AddBox from './components/AddBox';
+import AddItem from './components/AddItem';
 function App() {
   return (
     <Router>
@@ -39,6 +40,9 @@ function App() {
           </Route>
           <Route exact path='/addRoom'>
             <AddRoom />
+          </Route>
+          <Route exact path='/addItem'>
+            <AddItem />
           </Route>
         </Switch>
       </div>
