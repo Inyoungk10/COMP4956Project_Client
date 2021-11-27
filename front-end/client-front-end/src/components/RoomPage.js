@@ -47,20 +47,12 @@ import { render } from 'react-dom';
 
         let uid = '619499d8e15fd0d9eb530012';
 
+        
+
         useEffect(() => {
-            axios.get(`http://localhost:8888/rooms/${email}`, {
-                method: 'get',
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(res => {
-              let roomList = res.data;
-            //   console.log("res.data.Rooms: ",  res.data.Rooms);
-            //   console.log("res.data: ",  res.data);
-              roomList = res.data.Rooms;
-              setRoomList( roomList );
-            })    
-            // console.log("UseEffect")
+            getRooms();
+
+   // console.log("UseEffect")
         }, [])
 
         let showBoxes = (obj, roomID) => {
@@ -94,34 +86,40 @@ import { render } from 'react-dom';
                 
         }
 
-        let deleteRoom = (roomid) => {
-            axios.delete('http://localhost:3030/delete/deleteRoom', {
-                method: 'delete',
+        const getRooms = async () =>{
+            axios.get(`http://localhost:8888/rooms/${email}`, {
+                method: 'get',
                 headers: {
-                    'Authorization': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: {
-                    RoomID: roomid,
-                    Email: email
+                  'Content-Type': 'application/x-www-form-urlencoded'
                 }
+            }).then(res => {
+              let roomList = res.data;
+            //   console.log("res.data.Rooms: ",  res.data.Rooms);
+            //   console.log("res.data: ",  res.data);
+              roomList = res.data.Rooms;
+              setRoomList( roomList );
             })
+
         }
 
-        let deleteBox = (roomid, boxid) => {
+        const deleteRoom = async (roomid) => {
+            console.log("delete room: ", roomid);
+            let data = {RoomID: roomid,
+                        Email: email};
+            axios.delete('http://localhost:3030/delete/deleteRoom', {data})
+            window.location.reload(false);
+            }
+
+        const deleteBox = async (roomid, boxid) => {
             axios.delete('http://localhost:3030/delete/deleteBox', {
-                method: 'delete',
-                headers: {
-                    'Authorization': '*',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: {
+                data : {
                     RoomID: roomid,
                     Email: email,
                     BoxID: boxid
                 }
-            })
-        }
+             })
+             window.location.reload(false);
+            }
 
         return(
             <div className="room_page">
@@ -140,8 +138,9 @@ import { render } from 'react-dom';
                                 return(
                                     <div>
                                         <Room handleClick={showBoxes} room={room}/>
-                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID)}>Delete Room</button>
+                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
                                     </div>
+                                    
                                 )
                              })} 
                         </div>

@@ -131,6 +131,10 @@ recordRoutes.route("/update/:id").post(function (req, response) {
 //This section will help you delete a room
 recordRoutes.route("/delete/deleteRoom").delete((req, response) => {
   let db_connect = dbo.getDb();
+  //let obj = JSON.parse(req.body);
+  console.log("reqbody: ",req.body);
+  //console.log("response: ",response);
+  //console.log(req);
   let myquery = { email:  req.body.Email };
   db_connect
     .collection("ScannedObjectsCollection")
