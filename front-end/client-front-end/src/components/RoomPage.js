@@ -86,6 +86,10 @@ import { render } from 'react-dom';
                 
         }
 
+        const addItem = (roomid, boxid) => {
+            console.log("add item to" + roomid + "in" + boxid);
+        }
+
         const getRooms = async () =>{
             axios.get(`http://localhost:8888/rooms/${email}`, {
                 method: 'get',
@@ -168,9 +172,12 @@ import { render } from 'react-dom';
                                             <ul style={{margin: '30px'}}>
                                                 <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
                                                 <h3>Items</h3>
+                                                <button name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID)}>Add Item</button>
                                                     <ol> 
                                                     {box.Items?.map((Item) =>
-                                                    <li>{Item.ItemName}</li>
+                                                    <li>{Item.ItemName}
+                                                    </li>
+                                                    
                                                         )}
                                                     </ol>
                                                 
