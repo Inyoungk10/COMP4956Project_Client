@@ -11,7 +11,7 @@ const Rooms = (props) => {
 
 
     return(
-        <div onClick={() => props.handleClick(room.Boxes)}>
+        <div onClick={() => props.handleClick(room.Boxes, room.RoomID)}>
             <h3 key={room.RoomID}>{room.RoomName}</h3>
             <p>Height: {room.Height}, Width: {room.Width}, Depth: {room.Depth}</p>
         </div>

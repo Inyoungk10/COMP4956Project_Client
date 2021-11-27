@@ -30,9 +30,14 @@ import { render } from 'react-dom';
 
     const RoomPage = () => {
         const [roomList, setRoomList] = useState([]);
-        const [boxList, setBoxList] = useState([]);
+        const [boxInfo, setBoxList] = useState({
+            boxList : [],
+            roomID : ""
+   
+        });
         const history = useHistory();
-        console.log(roomList);
+        //console.log(roomList);
+        console.log("boxes", boxInfo);
 
         const URL = 'http://localhost:3030/rooms';
 
@@ -58,12 +63,17 @@ import { render } from 'react-dom';
             // console.log("UseEffect")
         }, [])
 
-        let showBoxes = (obj) => {
+        let showBoxes = (obj, roomID) => {
             setBoxList( [] );
             // console.log("showBoxes()");
             //obj contains box information
             console.log("showboxes() obj is " , obj);
-            setBoxList( obj );
+            console.log("showboxes() room.id is passed from room.js: ", roomID);
+            //setBoxList( obj, roomID );
+            setBoxList({
+                boxList: obj,
+                roomID : roomID
+            })
         }
 
         const addRoomRedirect = () => {
@@ -93,7 +103,7 @@ import { render } from 'react-dom';
                 },
                 data: {
                     RoomID: roomid,
-                    email: email
+                    Email: email
                 }
             })
         }
@@ -107,7 +117,7 @@ import { render } from 'react-dom';
                 },
                 data: {
                     RoomID: roomid,
-                    email: email,
+                    Email: email,
                     BoxID: boxid
                 }
             })
@@ -140,7 +150,7 @@ import { render } from 'react-dom';
                     <h1>Boxes</h1>
                         <div className="boxes">
 
-                             {roomList?.map((room)=>{
+                             {/* {roomList?.map((room)=>{
                                 return(
                                     <div>
                                      <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(room.RoomID)}>Add New Box to {room.RoomName}</button> 
@@ -148,14 +158,14 @@ import { render } from 'react-dom';
 
                                     
                                 )
-                             })} 
+                             })}  */}
                              
-                    
-                        {boxList?.map((box)=>{
+                             <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)}>Add New Box</button> 
+                        {boxInfo.boxList?.map((box)=>{
                                 return(
                                     <div>
                                         <h2>{box.BoxName}</h2>
-                                        <button name="deleteBoxBtn" onClick={() => deleteBox(box.BoxID)}>Delete Box</button>                                                                       
+                                        <button name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID,box.BoxID)}>Delete Box</button>                                                                       
                                             <ul style={{margin: '30px'}}>
                                                 <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
                                                 <h3>Items</h3>
