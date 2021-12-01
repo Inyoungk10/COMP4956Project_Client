@@ -22,7 +22,7 @@ const URL = 'http://localhost:3030/rooms';
 
 let uid = '619499d8e15fd0d9eb530012';
 
-export default class SandboxNew extends Component {
+export default class Sandbox extends Component {
     state = {
         Room: []
       }
