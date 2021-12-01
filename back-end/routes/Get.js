@@ -96,14 +96,15 @@ recordRoutes.route("/box/addItem").post(function (req, response) {
     ItemName: req.body.ItemName,
   };
   // add to db
+  console.log(req.body);
 
   db_connect.collection("ScannedObjectsCollection").updateOne(
-    { email: req.body.Email ,
-      "Rooms.RoomID": req.body.RoomID },
+    { email: req.body.Email },
     {  $addToSet: { "Rooms.$[room].Boxes.$[box].Items": newItem } },
     { arrayFilters: [{ 'room.RoomID' : req.body.RoomID }, { 'box.BoxID' : req.body.BoxID}]}
+    
     ).then(() => {
-      response.status(201).send("Success")
+      response.status(201).send("Added item");
     });
 });
 

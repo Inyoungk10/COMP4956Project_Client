@@ -30,7 +30,7 @@ const AddItem = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const item = {
-            BoxName: location.state.BoxID,
+            BoxID: location.state.BoxID,
             RoomID: location.state.RoomID,
             Email: JSON.parse(profile).result.email,
             ItemName: itemName
@@ -40,6 +40,7 @@ const AddItem = () => {
 
         const data = await api.addItem(item);
         console.log(data);
+        history.push('/rooms');
     }
 
     const cancel = () => {
@@ -48,7 +49,7 @@ const AddItem = () => {
 
     return(
         <div>
-            <h3>Add Item to: {location.state.BoxID}</h3>
+            <h3>Add Item to: {location.state.BoxName}</h3>
             <form onSubmit={handleSubmit}>
                 <TextField label='Item Name' value={itemName} onChange={(e) => setItemName(e.target.value)} variant={textFieldVariant} required />
                 <Button type='submit'>Submit</Button>

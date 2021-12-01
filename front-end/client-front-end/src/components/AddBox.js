@@ -45,6 +45,7 @@ const AddBox = () => {
 
         const data = await api.addBox(box);
         console.log(data);
+        history.push('/rooms');
     }
 
     const cancel = () => {
