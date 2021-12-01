@@ -12,7 +12,7 @@ import { render } from 'react-dom';
 // do the above for the boxes as well
 /* Author: Gurjot Sandher, Cameron Wark
 * Revision Date: 11/18/2021
-* Summary: RoomPage for list of rooms and corresponding boxes
+* Summary: RoomPage divs for list of rooms and corresponding boxes; no functionalities yet
 *
 *
 * Author: Francis Sapanta
@@ -25,10 +25,15 @@ import { render } from 'react-dom';
 * Summary: Room and Box functionalities work with database
 *
 *
+* Author: Francis Sapanta, Jacob Tan
+* Revision Date: 11/30/2021
+* Summary: Implemented all functionalities for box page; rewrite over previous implementation
+*
 */
 
 
     const RoomPage = () => {
+        const [disable, setDisable] = useState(true);
         const [roomList, setRoomList] = useState([]);
         const [boxInfo, setBoxList] = useState({
             boxList : [],
@@ -65,7 +70,11 @@ import { render } from 'react-dom';
             setBoxList({
                 boxList: obj,
                 roomID : roomID
-            })
+            });
+            setDisable(false);
+            //document.getElementById('addBoxButton').disabled = false;
+            
+            
         }
 
         const addRoomRedirect = () => {
@@ -81,19 +90,29 @@ import { render } from 'react-dom';
            history.push({
                 pathname:'/addBox',
                 state: {RoomID: roomid}
-            });
-
-                
+            });        
         }
 
-        const addItem = (roomid, boxid) => {
-            console.log("add item to" + roomid + "in" + boxid);
+        const sandBoxRedirect = roomid => {
+            console.log(roomid);
+           history.push({
+                pathname:'/sandbox',
+                state: {RoomID: roomid}
+            });        
+        }
+
+        const addItem = (roomid, boxid, boxname) => {
+            console.log("roomID : " + roomid);
+            console.log("boxID : " + boxid);
             history.push({
                 pathname:'/addItem',
                 state: {RoomID: roomid,
-                        BoxID: boxid}
+                        BoxID: boxid,
+                        BoxName: boxname}
             });
         }
+
+
 
         const getRooms = async () =>{
             axios.get(`http://localhost:8888/rooms/${email}`, {
@@ -130,6 +149,18 @@ import { render } from 'react-dom';
              window.location.reload(false);
             }
 
+        const deleteItem = (roomid, boxid, itemid) => {
+            axios.delete('http://localhost:3030/delete/deleteItem', {
+                data : {
+                    RoomID: roomid,
+                    Email: email,
+                    BoxID: boxid,
+                    ItemID: itemid
+                }
+            })
+            window.location.reload(false);
+        }
+
         return(
             <div className="room_page">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
@@ -148,6 +179,7 @@ import { render } from 'react-dom';
                                     <div>
                                         <Room handleClick={showBoxes} room={room}/>
                                         <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
+                                        <button name="enterSandboxBtn" onClick={() => sandBoxRedirect(room.RoomID)}>Open Sandbox</button>
                                     </div>
                                     
                                 )
@@ -158,29 +190,24 @@ import { render } from 'react-dom';
                     <h1>Boxes</h1>
                         <div className="boxes">
 
-                             {/* {roomList?.map((room)=>{
-                                return(
-                                    <div>
-                                     <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(room.RoomID)}>Add New Box to {room.RoomName}</button> 
-                                    </div>
 
-                                    
-                                )
-                             })}  */}
                              
-                             <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)}>Add New Box</button> 
+                             <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>Add New Box</button>
                         {boxInfo.boxList?.map((box)=>{
+                            
                                 return(
-                                    <div>
+                                    <div>   
                                         <h2>{box.BoxName}</h2>
-                                        <button name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID,box.BoxID)}>Delete Box</button>                                                                       
+                                        <button name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>Delete Box</button>                                                                       
                                             <ul style={{margin: '30px'}}>
                                                 <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
                                                 <h3>Items</h3>
-                                                <button name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID)}>Add Item</button>
+                                                <button name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>Add Item</button>
                                                     <ol> 
                                                     {box.Items?.map((Item) =>
-                                                    <li>{Item.ItemName}
+                                                    <li>
+                                                        {Item.ItemName  +  " "}
+                                                        <button onClick={() => deleteItem( boxInfo.roomID, box.BoxID, Item.ItemID)}>x</button>
                                                     </li>
                                                     
                                                         )}

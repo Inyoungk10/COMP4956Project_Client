@@ -32,6 +32,7 @@ const AddRoom = () => {
 
         const data = await api.addRoom(room);
         console.log(data);
+        history.push('/rooms');
     }
 
     const cancel = () => {
