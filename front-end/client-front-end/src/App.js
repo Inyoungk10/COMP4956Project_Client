@@ -2,7 +2,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import Auth from './components/Auth';
-import Sandbox from './components/Sandbox';
+import Sandbox from './components/sandbox';
 import SandboxTest from './components/sandboxTest';
 import RoomPage from './components/RoomPage';
 import AddRoom from './components/AddRoom';
