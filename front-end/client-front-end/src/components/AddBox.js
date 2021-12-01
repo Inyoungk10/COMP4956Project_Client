@@ -1,5 +1,6 @@
 /**
- * Author: Francis Sapanta
+ * Adding boxes to a room
+ * @Author Francis Sapanta, Jacob Tan
 */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';

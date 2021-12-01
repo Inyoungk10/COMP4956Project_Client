@@ -5,9 +5,6 @@ import Auth from './components/Auth';
 import Sandbox from './components/Sandbox';
 import SandboxTest from './components/sandboxTest';
 import RoomPage from './components/RoomPage';
-import Boxes from './components/Boxes';
-import Create from './components/CreateBox';
-import CreateRoom from './components/CreateRoom';
 import AddRoom from './components/AddRoom';
 import AddBox from './components/AddBox';
 import AddItem from './components/AddItem';
@@ -31,9 +28,6 @@ function App() {
           </Route>
           <Route exact path='/rooms'>
             <RoomPage />
-          </Route>
-          <Route exact path='/boxes'>
-            <Boxes />
           </Route>
           <Route exact path='/addBox'>
             <AddBox />

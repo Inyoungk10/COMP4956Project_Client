@@ -1,5 +1,6 @@
 import React from 'react';
-/* Author: Gurjot Sandher
+/* 
+* @Author Gurjot Sandher
 * Revision Date: 11/18/2021
 * Summary: Room component for the RoomPage to dynamic add list of Rooms to list
 */

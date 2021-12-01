@@ -5,8 +5,14 @@ const client = new MongoClient(Db, {
   useUnifiedTopology: true,
 });
  
-var _db;
- 
+/**
+ * Database connection module
+ * This connects the backend server with the MongoDB database
+ * @Author Jacob Tan, Francis Sapanta, Inyoung Kang
+ */
+
+
+var _db; 
 module.exports = {
   connectToServer: function (callback) {
     client.connect(function (err, db) {

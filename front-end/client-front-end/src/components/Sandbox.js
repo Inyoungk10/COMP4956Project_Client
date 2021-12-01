@@ -1,5 +1,5 @@
 /**
- * Author: Inyoung Kang
+ * @Author Inyoung Kang
  * Revision Date: 2021
  * Summary: Sandbox uses unity webGL to display webgl build and displays box information
  * ToDo: display information, add mouse clicks
