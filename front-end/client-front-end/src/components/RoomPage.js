@@ -1,16 +1,7 @@
-import React from 'react';
-import '../css/RoomPage.css';
-import Room from './Rooms';
-import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import * as api from '../api/index.js';
-import { useHistory } from 'react-router';
-import { render } from 'react-dom';
-
 //import the rooms here and use map to iterate over the list object containing <Room/> component
 // do the above for the boxes as well
-/* Author: Gurjot Sandher, Cameron Wark
+/* 
+* @Author: Gurjot Sandher, Cameron Wark
 * Revision Date: 11/18/2021
 * Summary: RoomPage divs for list of rooms and corresponding boxes; no functionalities yet
 *
@@ -25,11 +16,20 @@ import { render } from 'react-dom';
 * Summary: Room and Box functionalities work with database
 *
 *
-* Author: Francis Sapanta, Jacob Tan
+* @Author Francis Sapanta, Jacob Tan
 * Revision Date: 11/30/2021
 * Summary: Implemented all functionalities for box page; rewrite over previous implementation
+* Clean up code and add in comments
 *
 */
+
+import React from 'react';
+import '../css/RoomPage.css';
+import Room from './Rooms';
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 
     const RoomPage = () => {
@@ -51,14 +51,30 @@ import { render } from 'react-dom';
         let email  = JSON.parse(profile).result.email;
 
         let uid = '619499d8e15fd0d9eb530012';
-
-        
-
         useEffect(() => {
             getRooms();
 
-   // console.log("UseEffect")
         }, [])
+
+        ////////////////////////////////////
+        /// Retrieve Room and Box info
+        ////////////////////////////////////
+
+        const getRooms = async () =>{
+            axios.get(`http://localhost:8888/rooms/${email}`, {
+                method: 'get',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(res => {
+              let roomList = res.data;
+            //   console.log("res.data.Rooms: ",  res.data.Rooms);
+            //   console.log("res.data: ",  res.data);
+              roomList = res.data.Rooms;
+              setRoomList( roomList );
+            })
+
+        }
 
         let showBoxes = (obj, roomID) => {
             setBoxList( [] );
@@ -71,18 +87,15 @@ import { render } from 'react-dom';
                 boxList: obj,
                 roomID : roomID
             });
-            setDisable(false);
-            //document.getElementById('addBoxButton').disabled = false;
-        
+            setDisable(false); 
+            
         }
-
+        ////////////////////////////////////
+        /// Page Redirects
+        ////////////////////////////////////
         const addRoomRedirect = () => {
             history.push('/addRoom');
         }
-
-        // function addBoxRedirect(key) {
-        //     history.push('/addBox', {RoomID : key});
-        // }
 
         const addBoxRedirect = roomid => {
             console.log(roomid);
@@ -91,7 +104,6 @@ import { render } from 'react-dom';
                 state: {RoomID: roomid}
             });        
         }
-
         const sandBoxRedirect = roomid => {
             console.log(roomid);
            history.push({
@@ -111,6 +123,7 @@ import { render } from 'react-dom';
             });
         }
 
+<<<<<<< HEAD
 
 
         const getRooms = async () =>{
@@ -129,6 +142,11 @@ import { render } from 'react-dom';
 
         }
 
+=======
+        ////////////////////////////////////
+        /// Delete Functions
+        ////////////////////////////////////
+>>>>>>> d431739c3905c1abe51e1f7e15f918c19f1ab6be
         const deleteRoom = async (roomid) => {
             console.log("delete room: ", roomid);
             let data = {RoomID: roomid,
@@ -159,6 +177,10 @@ import { render } from 'react-dom';
             })
             window.location.reload(false);
         }
+
+        ////////////////////////////////////
+        /// Page Returns
+        ////////////////////////////////////
 
         return(
             <div className="room_page">

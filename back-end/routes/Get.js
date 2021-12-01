@@ -6,18 +6,17 @@ const mongoose = require('mongoose');
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
-
 recordRoutes.use(express.json());
 recordRoutes.use(express.urlencoded({ extended: true }));
 
-// This will help us connect to the database
 const dbo = require("../db/conn");
-
-// This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-// get request for user info
-// return UserID object + room id + box ids+ + name
+/**
+ * This module contains all the express routes which execute different HTTP requests such as GET, POST, PUT etc
+ * All database CRUD functionality will be found here
+ * @Author Jacob Tan, Brennen Chiu, Francis Sapanta, Inyoung Kang
+ */
 
 // This section will help you get the respective user document
 recordRoutes.route("/rooms/:email").get(function (req, res) {

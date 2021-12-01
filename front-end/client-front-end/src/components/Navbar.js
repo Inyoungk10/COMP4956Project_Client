@@ -1,5 +1,5 @@
 /**
- * Author: Inyoung Kang, Cameron Wark
+ * @Author Inyoung Kang, Cameron Wark
  * Revision Date: 11/18/2021
  * Summary: Navbar displayed on all pages
 */

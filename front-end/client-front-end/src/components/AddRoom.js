@@ -1,5 +1,6 @@
 /**
- * Author: Cameron Wark
+ * @Author Cameron Wark
+ * Add room to specific user
 */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';

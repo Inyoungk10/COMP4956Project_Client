@@ -1,5 +1,6 @@
 /**
- * Author: Francis Sapanta
+ * @Author Francis Sapanta, Jacob Tan
+ * Takes in Box and Room IDs and uses to add item to that user's specific box
 */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';

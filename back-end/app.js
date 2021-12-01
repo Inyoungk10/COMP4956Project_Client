@@ -4,10 +4,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const User = require('./models/user');
 const ScannedObjectCollection = require('./models/scannedObjectCollection');
 const auth = require('./middleware/auth');
+
+/**
+ * This is the express server
+ * Also handles the login and authentication routes
+ * @Author Francis Sapanta, Inyoung Kang, Cameron Wark
+ */
+
 
 const app = express();
 require("dotenv").config({ path: "./config.env" });
