@@ -3,12 +3,22 @@
  * Revision Date: 2021
  * Summary: Sandbox uses unity webGL to display webgl build and displays box information
  * ToDo: display information, add mouse clicks
+ * 
+ * @Author Inyoung Kang
+ * Revision Date: 2021-11-30
+ * Summary: Populating data from get request in promises to pass to unity build request
+ * ToDo: set delay on unity build button clicks to wait for data to populate
+ * 
+ * @Author Jacob Tan, Francis Sapanta
+ * Revision DateL 2021-11-30
+ * Summary: base axios request to get room data
  */
-import React, { Component } from 'react';
+
+import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useLocation } from 'react-router';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Unity, { UnityContext } from 'react-unity-webgl'
@@ -23,17 +33,28 @@ const unityContext = new UnityContext({
 const URL = 'http://localhost:3030/rooms';
 
 const Sandbox = () => {
-    const [disable, setDisable] = useState(true);
+
+    const location = useLocation();
+
+    console.log("room id " + location.state.RoomID);
+
     const [roomList, setRoomList] = useState([]);
     const [boxInfo, setBoxList] = useState({
         boxList : [],
         roomID : ""
-
     });
-    const history = useHistory();
-    //console.log(roomList);
-    console.log("boxes", boxInfo);
+    //const [roomID, setRoomID] = useState('');
 
+    let RoomInfo;
+
+    let BoxInfo;
+
+    let passedBoxInfo = [];
+
+
+    //console.log(roomList);
+    console.log("rooms ", roomList);  
+    
     const URL = 'http://localhost:3030/rooms';
 
     let profile = localStorage.getItem('profile');
@@ -44,9 +65,17 @@ const Sandbox = () => {
 
     useEffect(() => {
         getRooms();
-// console.log("UseEffect")
+        // console.log("UseEffect")
     }, []);
 
+
+    /** 
+     * 
+     * REPLACE THIS FUNCTION WITH GET ROOM BY ID
+     * POPULATE ROOM LIST WITH DATA
+     * GET BOXES FROM ROOM
+     * 
+    */
     const getRooms = async () =>{
         axios.get(`http://localhost:3030/rooms/${email}`, {
             method: 'get',
@@ -59,9 +88,30 @@ const Sandbox = () => {
         //   console.log("res.data: ",  res.data);
           roomList = res.data.Rooms;
           setRoomList( roomList );
-        })
+        }).then(() => {
+          roomList.forEach(function(room) {
+            if (room.RoomID == location.state.RoomID) {
+              RoomInfo = room;
+              BoxInfo = room.Boxes;
 
+              console.log("Grabbed Room Info!");
+              console.log(BoxInfo);
+              console.log(RoomInfo);
+
+              room.Boxes.forEach(function (box) {
+                let info = [box.BoxID, box.Depth, box.Height, box.Width];
+                passedBoxInfo.push(info);
+              });
+             
+              // info to pass to unity
+              console.log(passedBoxInfo);
+
+              // call unity function to pass array here
+            }
+          });
+        });
     }
+
 
     return(
         <Grid container spacing={2} columns={10}>

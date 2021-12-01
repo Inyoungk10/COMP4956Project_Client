@@ -123,30 +123,9 @@ import { useHistory } from 'react-router';
             });
         }
 
-<<<<<<< HEAD
-
-
-        const getRooms = async () =>{
-            axios.get(`http://localhost:3030/rooms/${email}`, {
-                method: 'get',
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(res => {
-              let roomList = res.data;
-            //   console.log("res.data.Rooms: ",  res.data.Rooms);
-            //   console.log("res.data: ",  res.data);
-              roomList = res.data.Rooms;
-              setRoomList( roomList );
-            })
-
-        }
-
-=======
         ////////////////////////////////////
         /// Delete Functions
         ////////////////////////////////////
->>>>>>> d431739c3905c1abe51e1f7e15f918c19f1ab6be
         const deleteRoom = async (roomid) => {
             console.log("delete room: ", roomid);
             let data = {RoomID: roomid,
