@@ -54,8 +54,6 @@ const Sandbox = () => {
 
     //console.log(roomList);
     console.log("rooms ", roomList);  
-    
-    const URL = 'http://localhost:3030/rooms';
 
     let profile = localStorage.getItem('profile');
     //console.log(profile);
@@ -87,6 +85,7 @@ const Sandbox = () => {
         //   console.log("res.data.Rooms: ",  res.data.Rooms);
         //   console.log("res.data: ",  res.data);
           roomList = res.data.Rooms;
+          console.log("set room list data!");
           setRoomList( roomList );
         }).then(() => {
           roomList.forEach(function(room) {

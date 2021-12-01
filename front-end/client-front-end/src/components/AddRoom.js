@@ -1,6 +1,9 @@
 /**
  * @Author Cameron Wark
- * Add room to specific user
+ * Add room to specific user\
+ * 
+ * 
+ * TODO input validation
 */
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';

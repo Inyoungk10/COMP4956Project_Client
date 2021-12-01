@@ -61,7 +61,7 @@ import { useHistory } from 'react-router';
         ////////////////////////////////////
 
         const getRooms = async () =>{
-            axios.get(`http://localhost:8888/rooms/${email}`, {
+            axios.get(`http://localhost:3030/rooms/${email}`, {
                 method: 'get',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
