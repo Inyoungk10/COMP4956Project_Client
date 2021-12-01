@@ -34,9 +34,7 @@ recordRoutes.route("/rooms/:email").get(function (req, res) {
         res.status(200).send(result);
         
       });
-    
 });
-
 
 // This section will help you create a new room.
 recordRoutes.route("/rooms/addRoom").post(function (req, response) {
@@ -49,7 +47,8 @@ recordRoutes.route("/rooms/addRoom").post(function (req, response) {
     Width: req.body.Width,
     Height: req.body.Height,
     Depth: req.body.Depth,
-    RoomName: req.body.RoomName
+    RoomName: req.body.RoomName,
+    Boxes: []
   };
 
   console.log(newRoom);

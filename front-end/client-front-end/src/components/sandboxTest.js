@@ -1,8 +1,10 @@
 /**
- * Author: Inyoung Kang
+ * @Author: Inyoung Kang
  * Revision Date: 2021
  * Summary: Sandbox uses unity webGL to display webgl build from Scanning team
  * ToDo: add mouse clicks
+ * 
+ * 
  */
 
 import React, { Component } from 'react';

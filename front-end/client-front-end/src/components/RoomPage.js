@@ -73,8 +73,7 @@ import { render } from 'react-dom';
             });
             setDisable(false);
             //document.getElementById('addBoxButton').disabled = false;
-            
-            
+        
         }
 
         const addRoomRedirect = () => {
@@ -115,7 +114,7 @@ import { render } from 'react-dom';
 
 
         const getRooms = async () =>{
-            axios.get(`http://localhost:8888/rooms/${email}`, {
+            axios.get(`http://localhost:3030/rooms/${email}`, {
                 method: 'get',
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'

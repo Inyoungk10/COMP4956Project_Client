@@ -1,63 +1,64 @@
-/**
- * Author: Inyoung Kang
- * Revision Date: 2021
- * Summary: Sandbox uses unity webGL to display webgl build and displays box information
- * ToDo: display information, add mouse clicks
- */
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
-import Unity, { UnityContext } from 'react-unity-webgl'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import qs from 'qs';
+import Unity, { UnityContext } from 'react-unity-webgl'
 
 const unityContext = new UnityContext({
     loaderUrl: "\\build\\roomity\\Build.loader.js",
     dataUrl: "\\build\\roomity\\Build.data",
     frameworkUrl: "\\build\\roomity\\Build.framework.js",
     codeUrl: "\\build\\roomity\\Build.wasm",
-  });
+});
 
 const URL = 'http://localhost:3030/rooms';
 
-let uid = '619499d8e15fd0d9eb530012';
+const Sandbox = () => {
+    const [disable, setDisable] = useState(true);
+    const [roomList, setRoomList] = useState([]);
+    const [boxInfo, setBoxList] = useState({
+        boxList : [],
+        roomID : ""
 
-export default class Sandbox extends Component {
-    state = {
-        Room: []
-      }
+    });
+    const history = useHistory();
+    //console.log(roomList);
+    console.log("boxes", boxInfo);
 
-    // function to strip boxes from data recieved
-    getBoxes() {
-      console.log(this.state.Room);
-    }
-    componentDidMount() {
-      try { 
-        axios.get(`http://localhost:3030/rooms/${uid}`, {
+    const URL = 'http://localhost:3030/rooms';
+
+    let profile = localStorage.getItem('profile');
+    //console.log(profile);
+    let email  = JSON.parse(profile).result.email;
+
+    console.log(email);
+
+    useEffect(() => {
+        getRooms();
+// console.log("UseEffect")
+    }, []);
+
+    const getRooms = async () =>{
+        axios.get(`http://localhost:3030/rooms/${email}`, {
             method: 'get',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(res => {
-          const Room = res.data.Rooms;
-          console.log("roomdata"+  res);
-          this.setState({ Room });
+          let roomList = res.data;
+        //   console.log("res.data.Rooms: ",  res.data.Rooms);
+        //   console.log("res.data: ",  res.data);
+          roomList = res.data.Rooms;
+          setRoomList( roomList );
         })
-      } catch (error) {
-        console.log(error)
-      }
+
     }
 
-    useEffect() {
-        unityContext.on("canvas", function (canvas) {
-          canvas.width = 100;
-          canvas.height = 50;
-        });
-      };
-
-    render() {
-        return (
-            <Grid container spacing={2} columns={10}>
+    return(
+        <Grid container spacing={2} columns={10}>
                 <Grid item xs={5}>
                     <h1>Sandbox</h1>
                     <div style={{display: 'table-row'}}>
@@ -70,7 +71,7 @@ export default class Sandbox extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={5}>
-                    <Button variant="contained" onClick={() => { this.getBoxes() }}>View Info</Button>
+                    <Button variant="contained" onClick={() => { this.getRooms() }}>View Info</Button>
                     {/* <div id="boxInfo" style={{'background-color': 'Beige'}}>
                         <ul>
                           
@@ -89,5 +90,6 @@ export default class Sandbox extends Component {
                     
                 </Grid>
             </Grid>
-        )};
+    );
 }
+export default Sandbox;
