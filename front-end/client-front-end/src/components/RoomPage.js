@@ -25,11 +25,14 @@
 
 import React from 'react';
 import '../css/RoomPage.css';
+import M from 'materialize-css';
 import Room from './Rooms';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
+import 'materialize-css/dist/css/materialize.min.css';
+
 
 
     const RoomPage = () => {
@@ -162,59 +165,64 @@ import { useHistory } from 'react-router';
         ////////////////////////////////////
 
         return(
-            <div className="room_page">
+            <div class="main_page">
+
+            
+            <div class="container container_div">
                 {/* /Use reduce to send Add Room state to create another room or push/concat to
                 a new list object / send this information to the mongoDB database*/}
 
                 {/* <button className='add_room' >Add Room </button> */}
+                <div class="row">
 
-                <div>
-                    <button id="addRoomButton" onClick={addRoomRedirect}>Create New Room</button>
-                </div>
-                <div className="rooms_container">
+
+                <div class="col s6">
+                   
                     <h1>Rooms</h1>
+                    <a id="addRoomButton" onClick={addRoomRedirect}>ADD NEW ROOM</a>
                         <div className="rooms">
                             {roomList?.map((room)=>{
                                 return(
                                     <div>
-                                        <Room handleClick={showBoxes} room={room}/>
-                                        <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
-                                        <button name="enterSandboxBtn" onClick={() => sandBoxRedirect(room.RoomID)}>Open Sandbox</button>
-                                    </div>
-                                    
+                                        <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} 
+                                        openSandbox={() => sandBoxRedirect(room.RoomID)} room={room}/>
+                                        {/* <a class="waves-effect waves-light btn-small">Button</a> */}
+                                        {/* <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
+                                        <button name="enterSandboxBtn" onClick={() => sandBoxRedirect(room.RoomID)}>Open Sandbox</button> */}
+                                    </div>     
                                 )
                              })} 
                         </div>
                 </div>
-                <div className ="boxes_container">
+                <div class="col s6">
                     <h1>Boxes</h1>
                         <div className="boxes">
 
 
                              
-                             <button key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>Add New Box</button>
+                             <a key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>ADD NEW BOX</a>
                         {boxInfo.boxList?.map((box)=>{
                             
                                 return(
-                                    <div>   
-                                        <h2>{box.BoxName}</h2>
-                                        <button name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>Delete Box</button>                                                                       
-                                            <ul style={{margin: '30px'}}>
-                                                <p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p>
-                                                <h3>Items</h3>
-                                                <button name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>Add Item</button>
-                                                    <ol> 
+                                    <div class="color"> 
+                                        <ul id="boxcollection" class="collection with-header" style={{backgroundColor: '#62717b'}}>
+                                            <li class="collection-header"><h3>{box.BoxName}</h3>
+                                            <a name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>DELETE BOX</a></li>                                         
+
+                                            <li class="collection-item"><h4>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</h4></li>
+                                            <li class="collection-item"><h5>Items</h5>
+                                            <a name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>ADD ITEM</a></li>
+                                                
+                                                     
                                                     {box.Items?.map((Item) =>
-                                                    <li>
-                                                        {Item.ItemName  +  " "}
-                                                        <button onClick={() => deleteItem( boxInfo.roomID, box.BoxID, Item.ItemID)}>x</button>
+                                                    <li class="collection-item">
+                                                        {Item.ItemName + `\t`}
+                                                        <a onClick={() => deleteItem( boxInfo.roomID, box.BoxID, Item.ItemID)}>DELETE</a>
                                                     </li>
                                                     
-                                                        )}
-                                                    </ol>
-                                                
-                                            </ul>
-                                     
+
+                                                        )}                                           
+                                        </ul>                
                                     </div>
                                 )
                              })} 
@@ -223,7 +231,9 @@ import { useHistory } from 'react-router';
                         </div>
                     {/* Box Component */}                
                 </div>
+                </div>
 
+            </div>
             </div>
         )
     }

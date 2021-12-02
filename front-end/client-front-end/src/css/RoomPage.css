@@ -8,7 +8,44 @@
     grid-template-rows: 15% 30% 10% 30% 15%;
     height: 100vh;
     width: 100vw;
+    
 }
+.container_div {
+    background-color: #37464f;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main_page {
+    background-color: #2f3f47;
+}
+
+body {
+    background-color: #2f3f47;
+}
+
+.card {
+    background-color: #62717b;
+}
+
+.card-content {
+    cursor: pointer; 
+}
+
+.color {
+    background-color: #62717b;
+}
+.collection {
+    background-color: #62717b;
+}
+
+h1 {
+    color: whitesmoke;
+}
+
+ #boxcollection{
+    
+}
+
 
 .rooms_container {
     background-color: azure;
@@ -59,4 +96,11 @@
     height:100%;
     width: 100%;
     /* background-color: hotpink; */
+}
+
+
+
+a {
+    cursor: pointer;
+    color: #ffa040;
 }
