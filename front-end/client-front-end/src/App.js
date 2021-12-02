@@ -8,11 +8,19 @@ import RoomPage from './components/RoomPage';
 import AddRoom from './components/AddRoom';
 import AddBox from './components/AddBox';
 import AddItem from './components/AddItem';
+import Unity from './components/unity';
+
+/**
+ * @Author Cameron Wark
+ * @description Root component
+*/
 function App() {
   return (
     <Router>
       <Navbar/>
       <div className='content'>
+
+        {/* this "switch" component injects different components into the page based on what url the user visits. */}
         <Switch>
           <Route exact path='/'>
             <LandingPage />
@@ -38,6 +46,10 @@ function App() {
           <Route exact path='/addItem'>
             <AddItem />
           </Route>
+          <Route exact path='/unity'>
+            <Unity />
+          </Route>
+
         </Switch>
       </div>
     </Router>

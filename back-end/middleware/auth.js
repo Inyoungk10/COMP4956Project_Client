@@ -1,17 +1,21 @@
 const jwt = require('jsonwebtoken');
 
 /**
- * Authentication Module
+ * Middleware that checks if user's token is valid before performing an action.
  * @Author Cameron Wark
  */
-
-const auth = async (req, res, next) => {
+ const auth = async (req, res, next) => {
     try {
+        // get token sent
         const token = req.headers.authorization.split(" ")[1];
+
+        // checks if token is the one we created or from google. 
         const isCustomAuth = token.length < 500;
 
         let decodedData; 
 
+
+        // gets user id from token
         if(token && isCustomAuth) {
             decodedData = jwt.verify(token, 'test');
             //req.userId = decodedData?.id;
@@ -22,6 +26,7 @@ const auth = async (req, res, next) => {
             req.userId = decodedData.sub;
         }
 
+        // pass the action on
         next();
     } catch (error) {
         console.log(error);

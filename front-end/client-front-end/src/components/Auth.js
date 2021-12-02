@@ -26,10 +26,12 @@ const Login = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // function used to switch a boolean value between true and false to adjust JSX rendered in component.
     const formSwitch = () => {
         setIsSignUp(!isSignup);
     }
 
+    // function that is called when google authentication is successful. User data is then stored in localstorage with dispatch()
     const googleSuccess = async (res) => {
         const result = res?.profileObj;
         const token = res?.tokenId;
@@ -42,12 +44,15 @@ const Login = () => {
         }
     }
 
+    // called when google authentication fails.
     const googleFailure = () => {
         console.log("Google sign-in failed.")
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // gather data for backend request.
         const formData = {
             firstName,
             lastName,
@@ -58,6 +63,7 @@ const Login = () => {
 
         console.log(formData)
 
+        // if-else statement dispatches either signup action or signin action depending on the state of isSignup variable. 
         if (isSignup) {
             dispatch(signup(formData, history));
         } else {

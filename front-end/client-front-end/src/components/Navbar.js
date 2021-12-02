@@ -4,17 +4,12 @@
  * Summary: Navbar displayed on all pages
 */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import '../css/Navbar.css';
+import 'materialize-css/dist/css/materialize.min.css';
+
 
 const Navbar = () => {
 
@@ -40,23 +35,31 @@ const Navbar = () => {
         <div>
             { user ? (
                 <>
-                <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Button color="inherit" component={Link} to="/rooms">Home</Button>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Roomity(?) Name pending
-                        </Typography>
-                    
-                        <Button color="inherit" onClick={logout}>Logout</Button>
-                    </Toolbar>
-                </AppBar>
-                </Box>
+                <nav>
+                    <div class="nav-wrapper">
+                        <a href="/rooms" class="brand-logo">Roomality</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><Link to="/unity">(Kevin's) Spatial Mapping Demo</Link></li>
+                            <li><Link to="/rooms">Dashboard</Link></li>
+                            <li><a onClick={logout} >Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
                 </>
             ) : (
                 <>
-                <Button color="inherit" component={Link} to="/">Home</Button>
-                <Button color="inherit" component={Link} to="/login">Login</Button>
+                <nav>
+                    <div class="nav-wrapper">
+                        <a href="#" class="brand-logo">Roomality</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/login">Login</Link></li>
+                            {/* <li><a component={Link} to="/">Home</a></li>
+                            <li><a component={Link} to="/login">Login</a></li> */}
+                        </ul>
+                    </div>
+                </nav>
+                
                 </>
             ) }            
         </div>

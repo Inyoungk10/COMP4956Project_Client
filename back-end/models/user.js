@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 /**
- * Database model schema for users on MongoDB
+ * schema used for creating a user to put into mongoDB database.
  * @Author Cameron Wark
  */
 
