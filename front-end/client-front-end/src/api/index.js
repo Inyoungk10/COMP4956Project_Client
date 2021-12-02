@@ -1,3 +1,7 @@
+/**
+ * Author: All
+ * Description: API used throughout the program to send requests to the backend.
+*/
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'http://localhost:3030' });
