@@ -130,6 +130,25 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
+recordRoutes.route('/editRoom').post((req, res) => {
+  let db_connect = dbo.getDb();
+  
+  const { Width, Height, Depth } = req.body;
+  const query = { [`Rooms.$.Width`]: Width, [`Rooms.$.Height`]: Height, [`Rooms.$.Depth`]: Depth };
+  db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email, "Rooms.RoomID": req.body.roomID}, {$set: query});
+
+  // const query = { [`Rooms.${index}.Width`]: Width, [`Rooms.${index}.Height`]: Height, [`Rooms.${index}.Depth`]: Depth };
+  // db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email}, {$set: query});
+  // const query = { [`Rooms.$[element].Width`]: '8' };
+  // db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email},
+  //    {$set: query},
+  //    {arrayFilters: [{element: "b31baf6d-37da-45e0-9956-9c1193263f22"}], upsert: true});
+
+  console.log('edit room ran');
+  console.log(req.body);
+});
+
+
 //This section will help you delete a room
 recordRoutes.route("/delete/deleteRoom").delete((req, response) => {
   let db_connect = dbo.getDb();

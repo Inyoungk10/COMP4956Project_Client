@@ -40,6 +40,7 @@ import 'materialize-css/dist/css/materialize.min.css';
             boxList : [],
             roomID : ""
         });
+
         const history = useHistory();
         //console.log(roomList);
         console.log("boxes", boxInfo);
@@ -55,6 +56,22 @@ import 'materialize-css/dist/css/materialize.min.css';
             getRooms();
 
         }, [])
+
+
+        // personal testing
+        const update = async () => {
+            const obj = {
+                roomID: 'b31baf6d-37da-45e0-9956-9c1193263f22',
+                email: email,
+                Width: '9',
+                Height: '9',
+                Depth: '9',
+            }
+            const res = await axios.post('http://localhost:3030/editRoom', obj);
+
+            console.log('update ran');
+        }
+        // update();
 
         ////////////////////////////////////
         /// Retrieve Room and Box info

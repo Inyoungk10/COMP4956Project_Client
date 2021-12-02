@@ -41,10 +41,6 @@ app.listen(port, () => {
 });
 const CONNECTION_URL = 'mongodb+srv://client-team:client-team123@cluster0.agrca.mongodb.net/roomalityDb?retryWrites=true&w=majority';
 
-app.post('/addRoom', (req, res) => {
-    console.log(req.body);
-});
-
 /**
  * @Author Cameron Wark
  * Description: Endpoint for when the user tries to sign up with manual login.
