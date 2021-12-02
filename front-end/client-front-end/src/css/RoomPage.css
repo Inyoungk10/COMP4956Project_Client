@@ -7,6 +7,11 @@
 * Author: Francis Sapanta, Jacob Tan
 * Revision Date: 12/01/2021
 * Summary: Updated styling for css
+*
+*
+* Author: Inyoung Kang
+* Revision Date: 12/01/2021
+* Summary: implemented div scrolling
 */
 
 
@@ -21,6 +26,7 @@
 
 body {
     background-color: #2f3f47;
+    overflow: hidden;
 }
 
 .card {
@@ -98,4 +104,14 @@ h1 {
 a {
     cursor: pointer;
     color: #ffa040;
+}
+
+/*
+Inyoung Kang
+*/
+
+#scrollDiv {
+    overflow-y: scroll;
+    height: 70vh;
+    margin: 20px;
 }

@@ -1,0 +1,66 @@
+/* 
+* Author: Inyoung Kang
+* Revision Date: 12/01/2021
+* Summary: Updated styling for sandbox page
+*/
+
+
+.container_div {
+    background-color: #37464f;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main_page {
+    background-color: #2f3f47;
+}
+
+body {
+    background-color: #2f3f47;
+}
+
+.card {
+    background-color: #62717b;
+}
+
+.card-content {
+    cursor: pointer; 
+}
+
+.color {
+    background-color: #62717b;
+}
+.collection {
+    background-color: #62717b;
+}
+
+h1 {
+    color: whitesmoke;
+}
+
+.boxes {
+    align-self:stretch;
+    height:100%;
+    width: 100%;
+    /* background-color: hotpink; */
+}
+
+
+a {
+    cursor: pointer;
+    color: #ffa040;
+}
+
+#growth {
+    overflow-y: scroll;
+    height: "640px";
+}
+
+#gridItem {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+Grid {
+
+}

@@ -19,6 +19,11 @@
 * Summary: Implemented all functionalities for box page; rewrite over previous implementation
 * Clean up code and add in comments
 *
+*
+* @Author Inyoung Kang
+* Revision Date: 12/01/2021
+* Summary: Added scrolling to rooms and boxes columnssaaaaaaaaaaaaaa
+*
 */
 
 import React from 'react';
@@ -107,6 +112,8 @@ import 'materialize-css/dist/css/materialize.min.css';
             setDisable(false); 
             
         }
+
+        console.log("box list"+ JSON.stringify(boxInfo.boxList));
         ////////////////////////////////////
         /// Page Redirects
         ////////////////////////////////////
@@ -192,7 +199,7 @@ import 'materialize-css/dist/css/materialize.min.css';
                         
                             <h1>Rooms</h1>
                             <a id="addRoomButton" onClick={addRoomRedirect}>ADD NEW ROOM</a>
-                                <div className="rooms">
+                                <div className="rooms" id="scrollDiv">
                                     {roomList?.map((room)=>{
                                         return(
                                             <div>
@@ -208,16 +215,17 @@ import 'materialize-css/dist/css/materialize.min.css';
                         </div>
                         <div class="col s6">
                             <h1>Boxes</h1>
-                                <div className="boxes">
+                                <div className="boxes" >
                                     <a key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>ADD NEW BOX</a>
+                                    <div id="scrollDiv">
                                     {boxInfo.boxList?.map((box)=>{
                                         return(
                                             <div class="color">
                                                 <div style={{height: '50px', width: '100%', backgroundColor: 'rgb(' + box.Red + ',' +  box.Green + ',' +  box.Blue + ')'}}></div>
                                                 <ul id="boxcollection" class="collection with-header" style={{backgroundColor: '#62717b'}}>
-                                                    <li class="collection-header"><h3>{box.BoxName}</h3>
+                                                    <li class="collection-header"><h5>{box.BoxName}</h5>
                                                     <a name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>DELETE BOX</a></li>                                         
-                                                    <li class="collection-item"><h4>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</h4></li>  
+                                                    <li class="collection-item"><p>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</p></li>  
                                                     <li class="collection-item"><h5>Items</h5>
                                                     <a name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>ADD ITEM</a></li>    
                                                             {box.Items?.map((Item) =>
@@ -231,6 +239,7 @@ import 'materialize-css/dist/css/materialize.min.css';
                                             </div>
                                         )
                                     })} 
+                                    </div>
                                 </div>
                             {/* Box Component */}                
                         </div>
