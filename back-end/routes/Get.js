@@ -15,7 +15,7 @@ const ObjectId = require("mongodb").ObjectId;
 /**
  * This module contains all the express routes which execute different HTTP requests such as GET, POST, PUT etc
  * All database CRUD functionality will be found here
- * @Author Jacob Tan, Brennen Chiu, Francis Sapanta, Inyoung Kang
+ * @Author Jacob Tan, Brennen Chiu, Francis Sapanta, Inyoung Kang, Cameron Wark
  */
 
 // This section will help you get the respective user document
@@ -130,6 +130,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
     });
 });
 
+// endpoint to edit a room
 recordRoutes.route('/editRoom').post((req, res) => {
   let db_connect = dbo.getDb();
   
@@ -144,9 +145,6 @@ recordRoutes.route('/editRoom').post((req, res) => {
   // db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email},
   //    {$set: query},
   //    {arrayFilters: [{element: "b31baf6d-37da-45e0-9956-9c1193263f22"}], upsert: true});
-
-  console.log('edit room ran');
-  console.log(req.body);
 });
 
 
