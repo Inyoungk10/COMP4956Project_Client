@@ -34,7 +34,7 @@ function App() {
           <Route exact path='/rooms'>
             <RoomPage />
           </Route>
-          <Route exact path='/rooms/edit/:roomID'>
+          <Route exact path='/rooms/edit/:roomID/:w/:h/:d'>
             <EditRoom />
           </Route>
           <Route exact path='/addBox'>

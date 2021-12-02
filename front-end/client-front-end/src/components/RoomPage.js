@@ -142,9 +142,9 @@ import 'materialize-css/dist/css/materialize.min.css';
             window.location.reload(false);
         }
 
-        const editRoom = (roomID) => {
+        const editRoom = (roomID, w, h, d) => {
             console.log(roomID);
-            history.push(`/rooms/edit/${roomID}`);
+            history.push(`/rooms/edit/${roomID}/${w}/${h}/${d}`);
         }
 
         const deleteBox = async (roomid, boxid) => {
@@ -192,7 +192,7 @@ import 'materialize-css/dist/css/materialize.min.css';
                                     {roomList?.map((room)=>{
                                         return(
                                             <div>
-                                                <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} editRoom={() => editRoom(room.RoomID)}
+                                                <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} editRoom={() => editRoom(room.RoomID, room.Width, room.Height, room.Depth)}
                                                 openSandbox={() => sandBoxRedirect(room.RoomID)} room={room}/>
                                                 {/* <a class="waves-effect waves-light btn-small">Button</a> */}
                                                 {/* <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>

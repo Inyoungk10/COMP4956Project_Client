@@ -12,9 +12,9 @@ const EditRoom = () => {
 
     const email  = JSON.parse(profile).result.email;
     const RoomID = typeObj.roomID;
-    const [width, setWidth] = useState('');
-    const [height, setHeight] = useState('');
-    const [depth, setDepth] = useState('');
+    const [width, setWidth] = useState(typeObj.w);
+    const [height, setHeight] = useState(typeObj.h);
+    const [depth, setDepth] = useState(typeObj.d);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
