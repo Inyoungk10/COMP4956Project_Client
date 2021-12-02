@@ -1,5 +1,3 @@
-//import the rooms here and use map to iterate over the list object containing <Room/> component
-// do the above for the boxes as well
 /* 
 * @Author: Gurjot Sandher, Cameron Wark
 * Revision Date: 11/18/2021

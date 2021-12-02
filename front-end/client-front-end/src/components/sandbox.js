@@ -25,10 +25,10 @@ import Unity, { UnityContext } from 'react-unity-webgl';
 import '../css/RoomPage.css';
 
 const unityContext = new UnityContext({
-    loaderUrl: "\\build\\roomity\\colorbuild.loader.js",
-    dataUrl: "\\build\\roomity\\colorbuild.data",
-    frameworkUrl: "\\build\\roomity\\colorbuild.framework.js",
-    codeUrl: "\\build\\roomity\\colorbuild.wasm",
+    loaderUrl: "\\build\\roomityV6\\truebuild.loader.js",
+    dataUrl: "\\build\\roomityV6\\truebuild.data",
+    frameworkUrl: "\\build\\roomityV6\\truebuild.framework.js",
+    codeUrl: "\\build\\roomityV6\\truebuild.wasm",
 });
 
 const Sandbox = () => {

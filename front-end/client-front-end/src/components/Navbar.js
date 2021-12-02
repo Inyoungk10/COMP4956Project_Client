@@ -2,6 +2,10 @@
  * @Author Inyoung Kang, Cameron Wark
  * Revision Date: 11/18/2021
  * Summary: Navbar displayed on all pages
+ * 
+ * @Author Inyoung Kang, Francis Sapanta
+ * Revision Date: 12/01/2021
+ * Summary: Fix Navbar bugs
 */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';

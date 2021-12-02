@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
 import Auth from './components/Auth';
 import Sandbox from './components/sandbox';
-import SandboxTest from './components/sandboxTest';
 import RoomPage from './components/RoomPage';
 import AddRoom from './components/AddRoom';
 import AddBox from './components/AddBox';
@@ -30,9 +29,6 @@ function App() {
           </Route>
           <Route exact path='/sandbox'>
             <Sandbox />
-          </Route>
-          <Route exact path='/sandboxTest'>
-            <SandboxTest />
           </Route>
           <Route exact path='/rooms'>
             <RoomPage />
