@@ -24,6 +24,7 @@ const Rooms = (props) => {
         </div>
         <div class="card-action">
           <a onClick={() => props.deleteRoom(room.RoomID, email)}>Delete Room</a>
+          <a onClick={() => props.editRoom(room.RoomID)}>Edit Room</a>
           <a onClick={() => props.openSandbox(room.RoomID)}>Open Sandbox</a>
         </div>
       </div>

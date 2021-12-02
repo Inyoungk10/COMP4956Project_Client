@@ -136,6 +136,7 @@ recordRoutes.route('/editRoom').post((req, res) => {
   const { Width, Height, Depth } = req.body;
   const query = { [`Rooms.$.Width`]: Width, [`Rooms.$.Height`]: Height, [`Rooms.$.Depth`]: Depth };
   db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email, "Rooms.RoomID": req.body.roomID}, {$set: query});
+  res.send('done');
 
   // const query = { [`Rooms.${index}.Width`]: Width, [`Rooms.${index}.Height`]: Height, [`Rooms.${index}.Depth`]: Depth };
   // db_connect.collection('ScannedObjectsCollection').updateOne({email: req.body.email}, {$set: query});

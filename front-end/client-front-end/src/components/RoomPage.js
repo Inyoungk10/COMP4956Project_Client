@@ -62,22 +62,6 @@ import 'materialize-css/dist/css/materialize.min.css';
 
         }, [])
 
-
-        // personal testing
-        const update = async () => {
-            const obj = {
-                roomID: 'b31baf6d-37da-45e0-9956-9c1193263f22',
-                email: email,
-                Width: '9',
-                Height: '9',
-                Depth: '9',
-            }
-            const res = await axios.post('http://localhost:3030/editRoom', obj);
-
-            console.log('update ran');
-        }
-        // update();
-
         ////////////////////////////////////
         /// Retrieve Room and Box info
         ////////////////////////////////////
@@ -156,7 +140,12 @@ import 'materialize-css/dist/css/materialize.min.css';
                         Email: email};
             axios.delete('http://localhost:3030/delete/deleteRoom', {data})
             window.location.reload(false);
-            }
+        }
+
+        const editRoom = (roomID) => {
+            console.log(roomID);
+            history.push(`/rooms/edit/${roomID}`);
+        }
 
         const deleteBox = async (roomid, boxid) => {
             axios.delete('http://localhost:3030/delete/deleteBox', {
@@ -203,7 +192,7 @@ import 'materialize-css/dist/css/materialize.min.css';
                                     {roomList?.map((room)=>{
                                         return(
                                             <div>
-                                                <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} 
+                                                <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} editRoom={() => editRoom(room.RoomID)}
                                                 openSandbox={() => sandBoxRedirect(room.RoomID)} room={room}/>
                                                 {/* <a class="waves-effect waves-light btn-small">Button</a> */}
                                                 {/* <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
