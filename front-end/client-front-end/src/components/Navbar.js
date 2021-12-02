@@ -43,7 +43,7 @@ const Navbar = () => {
                     <div class="nav-wrapper">
                         <a href="/rooms" class="brand-logo">Roomality</a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><Link to="/unity">(Kevin's) Spatial Mapping Demo</Link></li>
+                            <li><Link to="/unity">Spatial Mapping Demo</Link></li>
                             <li><Link to="/rooms">Dashboard</Link></li>
                             <li><a onClick={logout} >Logout</a></li>
                         </ul>
