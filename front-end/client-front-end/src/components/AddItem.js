@@ -8,6 +8,7 @@
  * Clean Styling for page
  * 12/1/2021
 */
+
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '@mui/material/Button';
@@ -15,6 +16,7 @@ import { TextField } from '@mui/material';
 import * as api from '../api/index.js';
 import { useLocation } from "react-router-dom";
 import 'materialize-css/dist/css/materialize.min.css';
+import '../css/Add.css';
 
 
 const AddItem = () => {
@@ -63,8 +65,8 @@ const AddItem = () => {
             <form class ="col s12"onSubmit={handleSubmit}>
                 <div class="row">
                     <div class="input-field col s12">
-                    <input id="icon_prefix" type="text"value={itemName} onChange={(e) => setItemName(e.target.value)} required></input>
-                    <label for="icon_prefix" >Item Name</label>
+                    <input id="dimension" type="text"value={itemName} onChange={(e) => setItemName(e.target.value)} required></input>
+                    <label for="dimension" >Item Name</label>
                     </div>
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Submit

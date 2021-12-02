@@ -11,12 +11,19 @@
  * Clean Styling for page
  * 12/1/2021
 */
+
+/**
+ * @Author Francis Sapanta, Inyoung Kang
+ * Fixed input validation
+ * 12/1/2021
+*/
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import * as api from '../api/index.js';
 import 'materialize-css/dist/css/materialize.min.css';
+import '../css/Add.css';
 
 const AddRoom = () => {
 
@@ -57,26 +64,26 @@ const AddRoom = () => {
             <form class ="col s12"onSubmit={handleSubmit}>
                 <div class="row">
                     <div class="input-field col s12">
-                    <input id="icon_prefix" type="text"value={roomName} onChange={(e) => setRoomName(e.target.value)} required></input>
-                    <label for="icon_prefix" >Room Name</label>
+                    <input id="dimension" type="text"value={roomName} onChange={(e) => setRoomName(e.target.value)} required></input>
+                    <label for="dimension" >Room Name</label>
                     </div>
                 </div>
                 <div class="row">
                 <div class="input-field col s12">
-                    <input id="icon_prefix" type="text"value={width} onChange={(e) => setWidth(e.target.value)} required></input>
-                    <label for="icon_prefix" >Width</label>
+                    <input class="validate" min="0" max="60" id="dimension" type="number"value={width} onChange={(e) => setWidth(e.target.value)} required></input>
+                    <label for="dimension" >Width</label>
                     </div>
                 </div>
                 <div class="row">
                 <div class="input-field col s12">
-                    <input id="icon_prefix" type="text"value={height} onChange={(e) => setHeight(e.target.value)} required></input>
-                    <label for="icon_prefix" >Height</label>
+                    <input class="validate" min="0" max="60" id="dimension" type="number"value={height} onChange={(e) => setHeight(e.target.value)} required></input>
+                    <label for="dimension" >Height</label>
                     </div>
                 </div>
                 <div class="row">
                 <div class="input-field col s12">
-                    <input id="icon_prefix" type="text"value={depth} onChange={(e) => setDepth(e.target.value)} required></input>
-                    <label for="icon_prefix" >Depth</label>
+                    <input class="validate" min="0" max="60" id="dimension" type="number"value={depth} onChange={(e) => setDepth(e.target.value)} required></input>
+                    <label for="dimension" >Depth</label>
                     </div>
                 </div>
                 <button class="btn waves-effect waves-light" type="submit" name="action">Submit

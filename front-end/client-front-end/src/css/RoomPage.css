@@ -1,15 +1,10 @@
-/* Author: Gurjot Sandher
+/* 
+* Author: Gurjot Sandher
 * Revision Date: 11/18/2021
 * Summary: CSS for the RoomPage
 */
-.room_page {
-    display: grid;
-    grid-template-columns: 15% 30% 10% 30% 15%;
-    grid-template-rows: 15% 30% 10% 30% 15%;
-    height: 100vh;
-    width: 100vw;
-    
-}
+
+
 .container_div {
     background-color: #37464f;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -42,18 +37,14 @@ h1 {
     color: whitesmoke;
 }
 
- #boxcollection{
-    
-}
-
-
-.rooms_container {
+/*
+ .rooms_container {
     background-color: azure;
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;
     grid-row-end: 5;
-    /* margin-right: 2em; */
+    /* margin-right: 2em; 
 }
 
 .boxes_container {
@@ -82,14 +73,14 @@ h1 {
 .add_room:hover {
     background-color: azure;
     color: green;
-}
+} 
 
 .rooms {
     align-self:stretch;
     height:100%;
     width: 100%;
-    /* background-color: hotpink; */
-}
+    /* background-color: hotpink; 
+ } */
 
 .boxes {
     align-self:stretch;
@@ -97,7 +88,6 @@ h1 {
     width: 100%;
     /* background-color: hotpink; */
 }
-
 
 
 a {

@@ -8,6 +8,7 @@ import RoomPage from './components/RoomPage';
 import AddRoom from './components/AddRoom';
 import AddBox from './components/AddBox';
 import AddItem from './components/AddItem';
+import Unity from './components/unity';
 
 /**
  * @Author Cameron Wark
@@ -45,6 +46,10 @@ function App() {
           <Route exact path='/addItem'>
             <AddItem />
           </Route>
+          <Route exact path='/unity'>
+            <Unity />
+          </Route>
+
         </Switch>
       </div>
     </Router>

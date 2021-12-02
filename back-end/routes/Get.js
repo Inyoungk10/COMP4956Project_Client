@@ -72,6 +72,9 @@ recordRoutes.route("/rooms/addBox").post(function (req, response) {
     Height: req.body.Height,
     Depth: req.body.Depth,
     BoxName: req.body.BoxName,
+    Red: req.body.Red,
+    Green: req.body.Green,
+    Blue: req.body.Blue
   };
   // add to db
 

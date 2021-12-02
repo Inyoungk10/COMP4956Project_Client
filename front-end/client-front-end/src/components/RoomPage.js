@@ -41,7 +41,6 @@ import 'materialize-css/dist/css/materialize.min.css';
         const [boxInfo, setBoxList] = useState({
             boxList : [],
             roomID : ""
-   
         });
         const history = useHistory();
         //console.log(roomList);
@@ -166,74 +165,63 @@ import 'materialize-css/dist/css/materialize.min.css';
 
         return(
             <div class="main_page">
+                <div class="container container_div">
+                    {/* /Use reduce to send Add Room state to create another room or push/concat to
+                    a new list object / send this information to the mongoDB database*/}
 
-            
-            <div class="container container_div">
-                {/* /Use reduce to send Add Room state to create another room or push/concat to
-                a new list object / send this information to the mongoDB database*/}
-
-                {/* <button className='add_room' >Add Room </button> */}
-                <div class="row">
+                    {/* <button className='add_room' >Add Room </button> */}
+                    <div class="row">
 
 
-                <div class="col s6">
-                   
-                    <h1>Rooms</h1>
-                    <a id="addRoomButton" onClick={addRoomRedirect}>ADD NEW ROOM</a>
-                        <div className="rooms">
-                            {roomList?.map((room)=>{
-                                return(
-                                    <div>
-                                        <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} 
-                                        openSandbox={() => sandBoxRedirect(room.RoomID)} room={room}/>
-                                        {/* <a class="waves-effect waves-light btn-small">Button</a> */}
-                                        {/* <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
-                                        <button name="enterSandboxBtn" onClick={() => sandBoxRedirect(room.RoomID)}>Open Sandbox</button> */}
-                                    </div>     
-                                )
-                             })} 
+                        <div class="col s6">
+                        
+                            <h1>Rooms</h1>
+                            <a id="addRoomButton" onClick={addRoomRedirect}>ADD NEW ROOM</a>
+                                <div className="rooms">
+                                    {roomList?.map((room)=>{
+                                        return(
+                                            <div>
+                                                <Room handleClick={showBoxes} deleteRoom={() => deleteRoom(room.RoomID, email)} 
+                                                openSandbox={() => sandBoxRedirect(room.RoomID)} room={room}/>
+                                                {/* <a class="waves-effect waves-light btn-small">Button</a> */}
+                                                {/* <button name="deleteRoomBtn" onClick={() => deleteRoom(room.RoomID, email)}>Delete Room</button>
+                                                <button name="enterSandboxBtn" onClick={() => sandBoxRedirect(room.RoomID)}>Open Sandbox</button> */}
+                                            </div>     
+                                        )
+                                    })} 
+                                </div>
                         </div>
-                </div>
-                <div class="col s6">
-                    <h1>Boxes</h1>
-                        <div className="boxes">
-
-
-                             
-                             <a key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>ADD NEW BOX</a>
-                        {boxInfo.boxList?.map((box)=>{
-                            
-                                return(
-                                    <div class="color"> 
-                                        <ul id="boxcollection" class="collection with-header" style={{backgroundColor: '#62717b'}}>
-                                            <li class="collection-header"><h3>{box.BoxName}</h3>
-                                            <a name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>DELETE BOX</a></li>                                         
-
-                                            <li class="collection-item"><h4>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</h4></li>
-                                            <li class="collection-item"><h5>Items</h5>
-                                            <a name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>ADD ITEM</a></li>
-                                                
-                                                     
-                                                    {box.Items?.map((Item) =>
-                                                    <li class="collection-item">
-                                                        {Item.ItemName + `\t`}
-                                                        <a onClick={() => deleteItem( boxInfo.roomID, box.BoxID, Item.ItemID)}>DELETE</a>
-                                                    </li>
-                                                    
-
-                                                        )}                                           
-                                        </ul>                
-                                    </div>
-                                )
-                             })} 
-
-
+                        <div class="col s6">
+                            <h1>Boxes</h1>
+                                <div className="boxes">
+                                    <a key = "room.RoomID" id="addBoxButton" onClick={() =>addBoxRedirect(boxInfo.roomID)} disabled={disable}>ADD NEW BOX</a>
+                                    {boxInfo.boxList?.map((box)=>{
+                                        return(
+                                            <div class="color">
+                                                <div style={{height: '50px', width: '100%', backgroundColor: 'rgb(' + box.Red + ',' +  box.Green + ',' +  box.Blue + ')'}}></div>
+                                                <ul id="boxcollection" class="collection with-header" style={{backgroundColor: '#62717b'}}>
+                                                    <li class="collection-header"><h3>{box.BoxName}</h3>
+                                                    <a name="deleteBoxBtn" onClick={() => deleteBox( boxInfo.roomID, box.BoxID)}>DELETE BOX</a></li>                                         
+                                                    <li class="collection-item"><h4>Height: {box.Height}, Width: {box.Width}, Depth: {box.Depth}</h4></li>  
+                                                    <li class="collection-item"><h5>Items</h5>
+                                                    <a name="addItemBtn" onClick={() => addItem( boxInfo.roomID, box.BoxID, box.BoxName)}>ADD ITEM</a></li>    
+                                                            {box.Items?.map((Item) =>
+                                                                <li class="collection-item">
+                                                                    {Item.ItemName + `\t`}
+                                                                    <a onClick={() => deleteItem( boxInfo.roomID, box.BoxID, Item.ItemID)}>DELETE</a>
+                                                                </li>
+                                                            )}
+                                                                                            
+                                                </ul>                
+                                            </div>
+                                        )
+                                    })} 
+                                </div>
+                            {/* Box Component */}                
                         </div>
-                    {/* Box Component */}                
-                </div>
-                </div>
+                    </div>
 
-            </div>
+                </div>
             </div>
         )
     }
