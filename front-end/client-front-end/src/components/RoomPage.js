@@ -1,7 +1,8 @@
 /* 
 * @Author: Gurjot Sandher, Cameron Wark
 * Revision Date: 11/18/2021
-* Summary: RoomPage divs for list of rooms and corresponding boxes; no functionalities yet
+* Summary: RoomPage divs for list of rooms and corresponding boxes; 
+* Functionality: Import rooms and use map() to iterate over the list object and use <Room/> component
 *
 *
 * Author: Francis Sapanta
@@ -24,6 +25,9 @@
 * Revision Date: 12/01/2021
 * Summary: Added scrolling to rooms and boxes columnssaaaaaaaaaaaaaa
 *
+* @Author Cameron Wark and Gurjot Sandher
+* Revision Date: 12/01/2021
+* Summary: Added edit function
 */
 
 import React from 'react';
